@@ -1,2 +1,23 @@
 $enable-responsive-font-sizes: true;
-@import "~bootstrap/scss/bootstrap.scss";
+$font-size-base: 1rem;
+$h1-font-size: $font-size-base * 2.875; // Works better on Alegreya fonts
+@import "~bootstrap/scss/bootstrap";
+
+h1,
+.h1 {
+  font-family: "Alegreya", serif;
+  @extend .mb-3;
+}
+p,
+li {
+  text-align: justify;
+}
+
+// Cap max width by breakpoint
+@each $breakpoint, $container-max-width in $container-max-widths {
+  .cap-width-#{$breakpoint} {
+    @include media-breakpoint-up($breakpoint) {
+      max-width: $container-max-width;
+    }
+  }
+}
