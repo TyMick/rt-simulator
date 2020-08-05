@@ -1,0 +1,17 @@
+@import "../index";
+
+nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  @extend .p-3;
+}
+.github-link {
+  @include font-size(2.5rem);
+  line-height: 1;
+  color: lighten(#333, 20%);
+  &:hover,
+  &:focus {
+    color: #333 !important;
+  }
+}

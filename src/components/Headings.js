@@ -1,12 +1,15 @@
 import React from "react";
 import { Container } from "react-bootstrap";
+import useBreakpoints from "use-window-width-breakpoints";
 import Subtitle from "./Subtitle";
 
 export default function Headings() {
+  const breakpoint = useBreakpoints();
+
   return (
-    <Container className="mt-5 text-lg-center">
+    <Container fluid={breakpoint.up.lg} className="mt-5 text-lg-center">
       <h1>
-        Why it&rsquo;s so important to keep COVID-19&rsquo;s{" "}
+        Why it&rsquo;s so important to keep COVID&#8209;19&rsquo;s{" "}
         <i>
           R<sub>t</sub>
         </i>{" "}
