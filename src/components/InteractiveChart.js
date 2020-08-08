@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
-import { Container } from "react-bootstrap";
+import { Container, Form, Row, Col } from "react-bootstrap";
 import { VegaLite } from "react-vega";
 import TeX from "@matejmazur/react-katex";
 import clsx from "clsx";
@@ -43,9 +43,7 @@ export default function InteractiveChart({
           setRt(nextRt);
         }, timeWhileMoving);
       }
-      return () => {
-        clearTimeout(timer);
-      };
+      return () => clearTimeout(timer);
     }
   }, [rt, animating, animationDirection]);
 
@@ -61,7 +59,7 @@ export default function InteractiveChart({
     height: "container",
     autosize: { contains: "padding" },
     background: "transparent",
-    mark: { type: "line" },
+    mark: { type: "line", clip: true },
     data: { name: "spread" },
     encoding: {
       x: {
@@ -84,7 +82,7 @@ export default function InteractiveChart({
           titleFontWeight: 400,
           labelFontSize: 14,
         },
-        scale: { domainMax: rt > 1.1 ? null : initialDomainMax },
+        scale: { domainMax: initialDomainMax },
       },
       color: { value: rtColorScale(rt).hex() },
     },
@@ -94,22 +92,45 @@ export default function InteractiveChart({
   };
 
   return (
-    <Container as="figure" fluid="xl" className="cap-width-lg">
-      <figcaption
-        className={clsx("text-center mb-n2", bp.xs ? "h5" : "h4")}
-        style={{ zIndex: 10000000000 }}
-      >
-        {bp.xs && <div className="h5 mb-0">Daily new infections when</div>}
-        <TeX
-          math={`R_t = ${rt}${rt.toString().length === 1 ? ".0" : ""}`}
-          style={{ color: rtColorScale(rt).hex() }}
-        />
-        {/* Add an invisible 0 for spacing on multiples of 0.1 */}
-        {rt.toString().length !== 4 && <TeX math="0" className="invisible" />}
-      </figcaption>
-      <VegaLite spec={vegaSpec} data={infectionSpreadSim} actions={false} />
+    <>
+      <Container as="figure" fluid="xl" className="cap-width-lg mb-0">
+        <figcaption className={clsx("text-center mb-n2", bp.xs ? "h5" : "h4")}>
+          {bp.xs && <div className="h5 mb-0">Daily new infections when</div>}
+          <TeX
+            math={`R_t = ${rt}${rt.toString().length === 1 ? ".0" : ""}`}
+            style={{ color: rtColorScale(rt).hex() }}
+          />
+          {/* Add an invisible 0 for spacing on multiples of 0.1 */}
+          {rt.toString().length !== 4 && <TeX math="0" className="invisible" />}
+        </figcaption>
 
-      {/* Inputs */}
-    </Container>
+        <VegaLite spec={vegaSpec} data={infectionSpreadSim} actions={false} />
+      </Container>
+
+      <Container className="cap-width-lg">
+        <Form>
+          <Form.Group
+            as={Row}
+            noGutters
+            className="align-items-center"
+            controlId="rtSlider"
+          >
+            <Form.Label column xs="auto" className="mr-3">
+              <TeX>R_t</TeX> slider
+            </Form.Label>
+            <Col>
+              <Form.Control
+                type="range"
+                min="0.5"
+                step="0.01"
+                max="1.5"
+                value={rt}
+                onChange={(e) => setRt(e.target.value)}
+              />
+            </Col>
+          </Form.Group>
+        </Form>
+      </Container>
+    </>
   );
 }
