@@ -9,6 +9,7 @@ export default function Subtitle({
 }) {
   return (
     <div
+      id="subtitle"
       className={clsx("h3 text-secondary", className)}
       style={{ marginBottom: "2rem", ...style }}
       {...otherProps}
