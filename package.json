@@ -10,6 +10,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.5.2",
+    "chroma-js": "^2.1.0",
     "clsx": "^1.1.1",
     "date-fns": "^2.15.0",
     "jstat": "^1.9.3",

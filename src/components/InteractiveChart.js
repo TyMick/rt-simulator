@@ -4,6 +4,7 @@ import { Container } from "react-bootstrap";
 import { VegaLite } from "react-vega";
 import TeX from "@matejmazur/react-katex";
 import clsx from "clsx";
+import chroma from "chroma-js";
 import { generateSimData } from "../model";
 import "./InteractiveChart.scss";
 
@@ -13,8 +14,16 @@ export default function InteractiveChart({
 }) {
   const bp = useWindowWidthBreakpoints();
   const [rt, setRt] = useState(1.1);
-  const [timelineMonths, setTimelineMonths] = useState(4);
   const [animating, setAnimating] = useState(true);
+
+  const successColor = "#28a745";
+  const warningColor = "#ffc107";
+  const dangerColor = "#dc3545";
+  const rtColorScale = chroma
+    .scale([successColor, warningColor, dangerColor])
+    .domain([0.95, 1.05]);
+  const rtColor = (rt) =>
+    rt < 0.95 ? successColor : rt > 1.05 ? dangerColor : rtColorScale(rt).hex();
 
   const vegaSpec = {
     width: "container",
@@ -43,17 +52,22 @@ export default function InteractiveChart({
           labelFontSize: 14,
         },
       },
+      color: { value: rtColor(rt) },
     },
   };
   const infectionSpreadSim = {
-    spread: generateSimData(rt, initialDailyInfections, timelineMonths),
+    spread: generateSimData(rt, initialDailyInfections),
   };
 
   return (
     <Container as="figure" fluid="xl" className="cap-width-lg">
       <figcaption className={clsx("text-center mb-0", bp.xs ? "h5" : "h4")}>
         {bp.xs && "Daily new infections when "}
-        <TeX math={`R_t = ${rt}`} block={bp.up.sm} />
+        <TeX
+          math={`R_t = ${rt.toFixed(2)}`}
+          block={bp.up.sm}
+          style={{ color: rtColor(rt) }}
+        />
       </figcaption>
       <VegaLite spec={vegaSpec} data={infectionSpreadSim} actions={false} />
 
