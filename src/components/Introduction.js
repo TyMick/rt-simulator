@@ -2,9 +2,13 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import TeX from "@matejmazur/react-katex";
 
-export default function Introduction() {
+export default function Introduction({
+  initialDailyInfections,
+  usDailyAverage,
+  chartFirst
+}) {
   return (
-    <Container className="cap-width-lg">
+    <Container className="cap-width-lg mb-4">
       <p>
         By many respects, the most important COVID-19 number to watch is its{" "}
         <a href="https://en.wikipedia.org/wiki/Basic_reproduction_number#Effective_reproduction_number">
@@ -18,7 +22,20 @@ export default function Introduction() {
 
       <p>
         What may surprise you, though, is how sensitive that pivot point of{" "}
-        <TeX>R_t = 1.0</TeX> is. See for yourself:
+        <TeX>R_t = 1.0</TeX> is. Surely a reproduction number of just{" "}
+        <TeX>1.1</TeX> can&rsquo;t be that bad, can it?{" "}
+        {chartFirst ? (
+          <>Well, you saw for yourself in the chart above.</>
+        ) : (
+          <>
+            See for yourself (with a starting point of{" "}
+            {initialDailyInfections.toLocaleString()} daily infections
+            {initialDailyInfections === usDailyAverage
+              ? ", the current 7-day average in the United States"
+              : ""}
+            ):
+          </>
+        )}
       </p>
     </Container>
   );
