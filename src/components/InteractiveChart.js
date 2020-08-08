@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { Container } from "react-bootstrap";
 import { VegaLite } from "react-vega";
-import FloatingLabel from "./FloatingLabel";
+import TeX from "@matejmazur/react-katex";
+import clsx from "clsx";
 import { generateSimData } from "../model";
 import "./InteractiveChart.scss";
 
@@ -10,7 +11,7 @@ export default function InteractiveChart({
   initialDailyInfections,
   setInitialDailyInfections,
 }) {
-  const breakpoint = useWindowWidthBreakpoints();
+  const bp = useWindowWidthBreakpoints();
   const [rt, setRt] = useState(1.1);
   const [timelineMonths, setTimelineMonths] = useState(4);
   const [animating, setAnimating] = useState(true);
@@ -19,7 +20,7 @@ export default function InteractiveChart({
     width: "container",
     height: "container",
     autosize: { contains: "padding" },
-    mark: { type: "line", clip: true },
+    mark: { type: "line" },
     data: { name: "spread" },
     encoding: {
       x: {
@@ -29,20 +30,15 @@ export default function InteractiveChart({
         axis: {
           tickCount: "month",
           labelFontSize: 14,
-          labelAngle: breakpoint.xs
-            ? Math.max(
-                (-90 / 5.1 ** (1 / 3)) * (timelineMonths - 2.9) ** (1 / 3),
-                -90
-              )
-            : -30,
+          labelAngle: bp.xs ? -50 : 0,
         },
       },
       y: {
         field: "newInfections",
         type: "quantitative",
-        title: "Daily New Infections",
+        title: bp.xs ? null : "Daily New Infections",
         axis: {
-          titleFontSize: breakpoint.xs ? 16 : 20,
+          titleFontSize: bp.xs ? 16 : 20,
           titleFontWeight: 400,
           labelFontSize: 14,
         },
@@ -53,14 +49,12 @@ export default function InteractiveChart({
     spread: generateSimData(rt, initialDailyInfections, timelineMonths),
   };
 
-  /**
-   * @todo Port to Next.js
-   * @todo Change floating label to a normal chart label
-   */
-
   return (
-    <Container as="figure" fluid="xl">
-      <FloatingLabel>{`R_t = ${rt}`}</FloatingLabel>
+    <Container as="figure" fluid="xl" className="cap-width-lg">
+      <figcaption className={clsx("text-center mb-0", bp.xs ? "h5" : "h4")}>
+        {bp.xs && "Daily new infections when "}
+        <TeX math={`R_t = ${rt}`} block={bp.up.sm} />
+      </figcaption>
       <VegaLite spec={vegaSpec} data={infectionSpreadSim} actions={false} />
 
       {/* Inputs */}

@@ -1,12 +1,15 @@
 @import "../index";
 
+.katex-display {
+  @extend .my-0;
+}
 .vega-embed {
   width: 100%;
   height: 15rem;
   @include media-breakpoint-up("sm") {
-    height: 60vw;
+    height: 50vw;
   }
-  @include media-breakpoint-up("xl") {
-    height: 0.6 * map-get($container-max-widths, "xl");
+  @include media-breakpoint-up("lg") {
+    height: 0.5 * map-get($container-max-widths, "lg");
   }
 }
