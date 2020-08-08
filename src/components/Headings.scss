@@ -1,0 +1,21 @@
+@import "../index";
+
+.long-heading {
+  @include media-breakpoint-only("xs") {
+    @include font-size(2.25rem);
+    margin-bottom: 0.5rem;
+  }
+  @include media-breakpoint-up("sm") {
+    margin-bottom: 1rem;
+  }
+}
+#subtitle {
+  @extend .text-secondary;
+  @extend .mb-3;
+  @include media-breakpoint-only("xs") {
+    @include font-size($h5-font-size);
+  }
+  @include media-breakpoint-up("sm") {
+    @include font-size($h3-font-size);
+  }
+}

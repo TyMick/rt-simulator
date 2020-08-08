@@ -6,7 +6,6 @@ $h1-font-size: $font-size-base * 2.875; // Works better on Alegreya fonts
 h1,
 .h1 {
   font-family: "Alegreya", serif;
-  @extend .mb-3;
 }
 p,
 li {
