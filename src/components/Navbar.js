@@ -6,7 +6,12 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 export default function Navbar() {
   return (
-    <RBNavbar as="header" variant="dark" bg="dark">
+    <RBNavbar
+      as="header"
+      variant="dark"
+      bg="dark"
+      style={{ marginBottom: "2rem" }}
+    >
       <Container fluid="xl">
         <RBNavbar.Brand>
           <TeX>R_t</TeX> Simulator
