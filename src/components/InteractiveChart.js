@@ -64,7 +64,7 @@ export default function InteractiveChart({
       <figcaption className={clsx("text-center mb-0", bp.xs ? "h5" : "h4")}>
         {bp.xs && "Daily new infections when "}
         <TeX
-          math={`R_t = ${rt.toFixed(2)}`}
+          math={`R_t = ${rt === 1 ? "1.0" : rt}`}
           block={bp.up.sm}
           style={{ color: rtColor(rt) }}
         />
