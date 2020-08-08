@@ -5,7 +5,7 @@ import TeX from "@matejmazur/react-katex";
 export default function Introduction({
   initialDailyInfections,
   usDailyAverage,
-  chartFirst
+  chartFirst,
 }) {
   return (
     <Container className="cap-width-lg mb-4">
@@ -21,14 +21,14 @@ export default function Introduction({
       </p>
 
       <p>
-        What may surprise you, though, is how sensitive that pivot point of{" "}
-        <TeX>R_t = 1.0</TeX> is. Surely a reproduction number of just{" "}
-        <TeX>1.1</TeX> can&rsquo;t be that bad, can it?{" "}
+        But what if each person with COVID only infects an average of{" "}
+        <TeX>1.1</TeX> people? <TeX>1.1</TeX> can&rsquo;t be <em>that</em> bad,
+        can it?{" "}
         {chartFirst ? (
           <>Well, you saw for yourself in the chart above.</>
         ) : (
           <>
-            See for yourself (with a starting point of{" "}
+            Well, see for yourself (with a starting point of{" "}
             {initialDailyInfections.toLocaleString()} daily infections
             {initialDailyInfections === usDailyAverage
               ? ", the current 7-day average in the United States"
