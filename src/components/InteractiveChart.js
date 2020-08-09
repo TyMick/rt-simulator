@@ -14,8 +14,9 @@ export default function InteractiveChart({
 }) {
   const bp = useWindowWidthBreakpoints();
 
-  const initialDomainMax = generateSimData(1.1, initialDailyInfections).pop()
+  const yDomainMax = generateSimData(1.1, initialDailyInfections).pop()
     .newInfections;
+
   const [rt, setRt] = useState(1.1);
 
   const [animating, setAnimating] = useState(true);
@@ -45,14 +46,16 @@ export default function InteractiveChart({
       }
       return () => clearTimeout(timer);
     }
-  }, [rt, animating, animationDirection]);
+  }, [rt, animating, animationDirection, timeAtEnds, timeWhileMoving]);
 
   const successColor = "#28a745";
   const warningColor = "#ffc107";
   const dangerColor = "#dc3545";
-  const rtColorScale = chroma
-    .scale([successColor, warningColor, dangerColor])
-    .domain([0.95, 1.05]);
+  const rtColor = (rt) =>
+    chroma
+      .scale([successColor, warningColor, dangerColor])
+      .domain([0.95, 1.05])(rt)
+      .hex();
 
   const vegaSpec = {
     width: "container",
@@ -82,9 +85,9 @@ export default function InteractiveChart({
           titleFontWeight: 400,
           labelFontSize: 14,
         },
-        scale: { domainMax: initialDomainMax },
+        scale: { domainMax: yDomainMax },
       },
-      color: { value: rtColorScale(rt).hex() },
+      color: { value: rtColor(rt) },
     },
   };
   const infectionSpreadSim = {
@@ -98,7 +101,7 @@ export default function InteractiveChart({
           {bp.xs && <div className="h5 mb-0">Daily new infections when</div>}
           <TeX
             math={`R_t = ${rt}${rt.toString().length === 1 ? ".0" : ""}`}
-            style={{ color: rtColorScale(rt).hex() }}
+            style={{ color: rtColor(rt) }}
           />
           {/* Add an invisible 0 for spacing on multiples of 0.1 */}
           {rt.toString().length !== 4 && <TeX math="0" className="invisible" />}
