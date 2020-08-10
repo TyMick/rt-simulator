@@ -5,7 +5,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-brands-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
-    "@matejmazur/react-katex": "^3.0.2",
+    "@matejmazur/react-katex": "3.1.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
