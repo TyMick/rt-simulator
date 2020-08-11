@@ -1,6 +1,7 @@
-// JavaScript port of Rt Live's Python spread model: https://github.com/rtcovidlive/covid-model/blob/master/tutorial.ipynb
-// Also formats time axis as dates instead of integer days
-
+/**
+ * JavaScript port of Rt Live's Python spread model: https://github.com/rtcovidlive/covid-model/blob/master/tutorial.ipynb
+ * Also formats time axis as dates instead of integer days
+ */
 import { jStat } from "jstat";
 import { startOfToday, addDays } from "date-fns";
 

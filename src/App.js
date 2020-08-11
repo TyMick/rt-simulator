@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import useWindowOrientation from "use-window-orientation";
+import { round } from "lodash";
 import Navbar from "./components/Navbar";
 import Headings from "./components/Headings";
 import Introduction from "./components/Introduction";
 import InteractiveChart from "./components/InteractiveChart";
+import { generateSimData } from "./model";
 
 export default function App() {
   const breakpoint = useWindowWidthBreakpoints();
@@ -14,6 +16,11 @@ export default function App() {
 
   const [initialDailyInfections, setInitialDailyInfections] = useState(9000);
   const [usDailyAverage, setUsDailyAverage] = useState(9000);
+
+  let infectionSpreadSims = {};
+  for (let rt = 0.5; rt <= 1.5; rt = round(rt + 0.01, 2)) {
+    infectionSpreadSims[rt] = generateSimData(rt, initialDailyInfections);
+  }
 
   return (
     <>
@@ -29,7 +36,11 @@ export default function App() {
         )}
 
         <InteractiveChart
-          {...{ initialDailyInfections, setInitialDailyInfections }}
+          {...{
+            initialDailyInfections,
+            setInitialDailyInfections,
+            infectionSpreadSims,
+          }}
         />
 
         {chartFirst && (

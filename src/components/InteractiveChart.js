@@ -8,16 +8,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import clsx from "clsx";
 import chroma from "chroma-js";
-import { generateSimData } from "../model";
+import { last, round } from "lodash";
 
 export default function InteractiveChart({
   initialDailyInfections,
   setInitialDailyInfections,
+  infectionSpreadSims,
 }) {
   const bp = useWindowWidthBreakpoints();
 
-  const yDomainMax = generateSimData(1.1, initialDailyInfections).pop()
-    .newInfections;
+  const yDomainMax = last(infectionSpreadSims["1.1"]).newInfections;
 
   const [rt, setRt] = useState(1.1);
   const [usState, setUsState] = useState("");
@@ -39,10 +39,10 @@ export default function InteractiveChart({
           setRt(1.09);
         }, timeAtEnds);
       } else {
-        const nextRt =
-          Math.round(
-            (animationDirection === "up" ? rt + 0.01 : rt - 0.01) * 100
-          ) / 100; // Float troubles
+        const nextRt = round(
+          animationDirection === "up" ? rt + 0.01 : rt - 0.01,
+          2
+        );
         timer = setTimeout(() => {
           setRt(nextRt);
         }, timeWhileMoving);
@@ -108,9 +108,7 @@ export default function InteractiveChart({
       color: { value: rtColor(rt) },
     },
   };
-  const infectionSpreadSim = {
-    spread: generateSimData(rt, initialDailyInfections),
-  };
+  const infectionSpreadSim = { spread: infectionSpreadSims[rt] };
 
   return (
     <>
