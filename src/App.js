@@ -18,7 +18,7 @@ export default function App() {
   const [usDailyAverage, setUsDailyAverage] = useState(9000);
 
   let infectionSpreadSims = {};
-  for (let rt = 0.5; rt <= 1.5; rt = round(rt + 0.01, 2)) {
+  for (let rt = 0; rt <= 3; rt = round(rt + 0.01, 2)) {
     infectionSpreadSims[rt] = generateSimData(rt, initialDailyInfections);
   }
 
