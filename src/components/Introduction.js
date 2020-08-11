@@ -8,7 +8,7 @@ export default function Introduction({
   chartFirst,
 }) {
   return (
-    <Container className="cap-width-lg mb-4">
+    <Container fluid="md" className="cap-width-lg mb-4">
       <p>
         By many respects, the most important COVID-19 number to watch is its{" "}
         <a href="https://en.wikipedia.org/wiki/Basic_reproduction_number#Effective_reproduction_number">

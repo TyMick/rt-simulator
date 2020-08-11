@@ -23,7 +23,7 @@ export default function InteractiveChart({
   const [usState, setUsState] = useState("");
 
   const [animating, setAnimating] = useState(true);
-  const [animationDirection, setAnimationDirection] = useState("down");
+  const [animationDirection, setAnimationDirection] = useState("up");
   const [timeAtEnds, timeWhileMoving] = [3000, 50];
   useEffect(() => {
     if (animating) {
@@ -53,11 +53,7 @@ export default function InteractiveChart({
   function toggleAnimation() {
     if (!animating) {
       setUsState("");
-      if (rt <= 0.9) {
-        setAnimationDirection("up");
-      } else if (rt < 1) {
-        setAnimationDirection("down");
-      } else if (rt < 1.1) {
+      if (rt < 1.1) {
         setAnimationDirection("up");
       } else {
         setAnimationDirection("down");
@@ -133,7 +129,7 @@ export default function InteractiveChart({
           <Form.Group
             as={Form.Row}
             controlId="rtSlider"
-            className="align-items-center"
+            className="align-items-center mb-0 mb-sm-2"
           >
             <Form.Label column xs="auto">
               <TeX>R_t</TeX> slider
@@ -154,9 +150,9 @@ export default function InteractiveChart({
             </Col>
             <Col xs="auto">
               <Button
-                variant="info"
-                onClick={toggleAnimation}
+                variant="primary"
                 aria-label={`${animating ? "Stop" : "Resume"} animation`}
+                onClick={toggleAnimation}
                 className="rounded-circle"
               >
                 <FontAwesomeIcon icon={animating ? faPause : faPlay} />
@@ -165,10 +161,10 @@ export default function InteractiveChart({
           </Form.Group>
 
           <Form.Group as={Form.Row} controlId="statePicker">
-            <Form.Label column xs={12} sm>
+            <Form.Label column xs={12} sm="auto">
               Pick a U.S. state to fill its current <TeX>R_t</TeX> estimate:
             </Form.Label>
-            <Col xs="auto">
+            <Col xs={12} sm md="auto">
               <Form.Control
                 as="select"
                 value={usState}

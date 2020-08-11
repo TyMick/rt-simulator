@@ -14,6 +14,7 @@
   }
 }
 
+.range-slider__wrap .range-slider__tooltip div.range-slider__tooltip__label,
 .range-slider__wrap:hover
   div.range-slider__tooltip:not(.range-slider__tooltip--off):not(.range-slider__tooltip--disabled) {
   opacity: 1;
