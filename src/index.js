@@ -4,6 +4,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "./index.scss";
 import "katex/dist/katex.min.css";
+import "react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css";
 
 ReactDOM.render(
   <React.StrictMode>

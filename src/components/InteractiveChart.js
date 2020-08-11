@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
+import RangeSlider from "react-bootstrap-range-slider";
 import { VegaLite } from "react-vega";
 import TeX from "@matejmazur/react-katex";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -137,14 +138,13 @@ export default function InteractiveChart({
               <TeX>R_t</TeX> slider
             </Form.Label>
             <Col>
-              <Form.Control
-                type="range"
-                custom={true}
-                style={{ height: "0.75rem" }}
+              <RangeSlider
+                inputProps={{ id: "rtSlider" }}
                 min="0.5"
                 step="0.01"
                 max="1.5"
                 value={rt}
+                tooltipPlacement="top"
                 onChange={(e) => {
                   setAnimating(false);
                   setRt(parseFloat(e.target.value));

@@ -1,3 +1,5 @@
+@import "~/react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css";
+
 .katex-display {
   @extend .my-0;
 }
@@ -10,4 +12,9 @@
   @include media-breakpoint-up("lg") {
     height: 0.5 * map-get($container-max-widths, "lg");
   }
+}
+
+.range-slider__wrap:hover
+  div.range-slider__tooltip:not(.range-slider__tooltip--off):not(.range-slider__tooltip--disabled) {
+  opacity: 1;
 }
