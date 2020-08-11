@@ -3,6 +3,8 @@ import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import { VegaLite } from "react-vega";
 import TeX from "@matejmazur/react-katex";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import clsx from "clsx";
 import chroma from "chroma-js";
 import { generateSimData } from "../model";
@@ -19,7 +21,7 @@ export default function InteractiveChart({
 
   const [rt, setRt] = useState(1.1);
 
-  const [animating, setAnimating] = useState(false);
+  const [animating, setAnimating] = useState(true);
   const [animationDirection, setAnimationDirection] = useState("down");
   const [timeAtEnds, timeWhileMoving] = [3000, 50];
   useEffect(() => {
@@ -128,30 +130,36 @@ export default function InteractiveChart({
         <Form>
           <Form.Group
             as={Row}
+            noGutters
             className="align-items-center"
             controlId="rtSlider"
           >
-            <Form.Label column xs="auto" className="mr-n3">
+            <Form.Label column xs="auto" className="mr-3">
               <TeX>R_t</TeX> slider
             </Form.Label>
             <Col>
               <Form.Control
                 type="range"
+                custom={true}
+                className="mx-"
                 min="0.5"
                 step="0.01"
                 max="1.5"
                 value={rt}
-                onChange={(e) => setRt(parseFloat(e.target.value))}
+                onChange={(e) => {
+                  setAnimating(false);
+                  setRt(parseFloat(e.target.value));
+                }}
               />
             </Col>
-            <Col xs={12} sm="auto">
+            <Col xs="auto" className="ml-3">
               <Button
-                variant="outline-primary"
-                active={animating}
-                style={{ width: "10.5rem" }}
+                variant="info"
                 onClick={toggleAnimation}
+                aria-label={`${animating ? "Stop" : "Resume"} animation`}
+                className="rounded-circle"
               >
-                {animating ? "Stop" : "Resume"} animation
+                <FontAwesomeIcon icon={animating ? faPause : faPlay} />
               </Button>
             </Col>
           </Form.Group>
