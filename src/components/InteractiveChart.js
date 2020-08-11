@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
-import { Container, Form, Row, Col } from "react-bootstrap";
+import { Container, Form, Row, Col, Button } from "react-bootstrap";
 import { VegaLite } from "react-vega";
 import TeX from "@matejmazur/react-katex";
 import clsx from "clsx";
@@ -19,18 +19,18 @@ export default function InteractiveChart({
 
   const [rt, setRt] = useState(1.1);
 
-  const [animating, setAnimating] = useState(true);
+  const [animating, setAnimating] = useState(false);
   const [animationDirection, setAnimationDirection] = useState("down");
   const [timeAtEnds, timeWhileMoving] = [3000, 50];
   useEffect(() => {
     if (animating) {
       let timer;
-      if (rt === 0.9) {
+      if (rt === 0.9 && animationDirection === "down") {
         timer = setTimeout(() => {
           setAnimationDirection("up");
           setRt(0.91);
         }, timeAtEnds);
-      } else if (rt === 1.1) {
+      } else if (rt === 1.1 && animationDirection === "up") {
         timer = setTimeout(() => {
           setAnimationDirection("down");
           setRt(1.09);
@@ -47,6 +47,20 @@ export default function InteractiveChart({
       return () => clearTimeout(timer);
     }
   }, [rt, animating, animationDirection, timeAtEnds, timeWhileMoving]);
+  function toggleAnimation() {
+    if (!animating) {
+      if (rt <= 0.9) {
+        setAnimationDirection("up");
+      } else if (rt < 1) {
+        setAnimationDirection("down");
+      } else if (rt < 1.1) {
+        setAnimationDirection("up");
+      } else {
+        setAnimationDirection("down");
+      }
+    }
+    setAnimating(!animating);
+  }
 
   const successColor = "#28a745";
   const warningColor = "#ffc107";
@@ -114,11 +128,10 @@ export default function InteractiveChart({
         <Form>
           <Form.Group
             as={Row}
-            noGutters
             className="align-items-center"
             controlId="rtSlider"
           >
-            <Form.Label column xs="auto" className="mr-3">
+            <Form.Label column xs="auto" className="mr-n3">
               <TeX>R_t</TeX> slider
             </Form.Label>
             <Col>
@@ -128,8 +141,18 @@ export default function InteractiveChart({
                 step="0.01"
                 max="1.5"
                 value={rt}
-                onChange={(e) => setRt(e.target.value)}
+                onChange={(e) => setRt(parseFloat(e.target.value))}
               />
+            </Col>
+            <Col xs={12} sm="auto">
+              <Button
+                variant="outline-primary"
+                active={animating}
+                style={{ width: "10.5rem" }}
+                onClick={toggleAnimation}
+              >
+                {animating ? "Stop" : "Resume"} animation
+              </Button>
             </Col>
           </Form.Group>
         </Form>
