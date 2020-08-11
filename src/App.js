@@ -22,19 +22,19 @@ export default function App() {
       <main>
         <Headings />
 
-        {chartFirst && (
-          <InteractiveChart
-            {...{ initialDailyInfections, setInitialDailyInfections }}
+        {!chartFirst && (
+          <Introduction
+            {...{ initialDailyInfections, usDailyAverage, chartFirst }}
           />
         )}
 
-        <Introduction
-          {...{ initialDailyInfections, usDailyAverage, chartFirst }}
+        <InteractiveChart
+          {...{ initialDailyInfections, setInitialDailyInfections }}
         />
 
-        {!chartFirst && (
-          <InteractiveChart
-            {...{ initialDailyInfections, setInitialDailyInfections }}
+        {chartFirst && (
+          <Introduction
+            {...{ initialDailyInfections, usDailyAverage, chartFirst }}
           />
         )}
       </main>
