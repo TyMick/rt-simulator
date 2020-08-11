@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
-import { Container, Form, Row, Col, Button } from "react-bootstrap";
+import { Container, Form, Col, Button } from "react-bootstrap";
 import RangeSlider from "react-bootstrap-range-slider";
 import { VegaLite } from "react-vega";
 import TeX from "@matejmazur/react-katex";
@@ -20,6 +20,7 @@ export default function InteractiveChart({
     .newInfections;
 
   const [rt, setRt] = useState(1.1);
+  const [usState, setUsState] = useState("");
 
   const [animating, setAnimating] = useState(true);
   const [animationDirection, setAnimationDirection] = useState("down");
@@ -51,6 +52,7 @@ export default function InteractiveChart({
   }, [rt, animating, animationDirection, timeAtEnds, timeWhileMoving]);
   function toggleAnimation() {
     if (!animating) {
+      setUsState("");
       if (rt <= 0.9) {
         setAnimationDirection("up");
       } else if (rt < 1) {
@@ -112,6 +114,7 @@ export default function InteractiveChart({
 
   return (
     <>
+      {/* Chart */}
       <Container as="figure" fluid="xl" className="cap-width-lg mb-0">
         <figcaption className={clsx("text-center mb-n2", bp.xs ? "h5" : "h4")}>
           {bp.xs && <div className="h5 mb-0">Daily new infections when</div>}
@@ -119,22 +122,22 @@ export default function InteractiveChart({
             math={`R_t = ${rt}${rt.toString().length === 1 ? ".0" : ""}`}
             style={{ color: rtColor(rt) }}
           />
-          {/* Add an invisible 0 for spacing on multiples of 0.1 */}
+          {/* Adding an invisible 0 for spacing on multiples of 0.1 */}
           {rt.toString().length !== 4 && <TeX math="0" className="invisible" />}
         </figcaption>
 
         <VegaLite spec={vegaSpec} data={infectionSpreadSim} actions={false} />
       </Container>
 
+      {/* Interactive elements */}
       <Container className="cap-width-lg">
         <Form>
           <Form.Group
-            as={Row}
-            noGutters
-            className="align-items-center"
+            as={Form.Row}
             controlId="rtSlider"
+            className="align-items-center"
           >
-            <Form.Label column xs="auto" className="mr-3">
+            <Form.Label column xs="auto">
               <TeX>R_t</TeX> slider
             </Form.Label>
             <Col>
@@ -151,7 +154,7 @@ export default function InteractiveChart({
                 }}
               />
             </Col>
-            <Col xs="auto" className="ml-3">
+            <Col xs="auto">
               <Button
                 variant="info"
                 onClick={toggleAnimation}
@@ -160,6 +163,74 @@ export default function InteractiveChart({
               >
                 <FontAwesomeIcon icon={animating ? faPause : faPlay} />
               </Button>
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Form.Row} controlId="statePicker">
+            <Form.Label column xs={12} sm>
+              Pick a U.S. state to fill its current <TeX>R_t</TeX> estimate:
+            </Form.Label>
+            <Col xs="auto">
+              <Form.Control
+                as="select"
+                value={usState}
+                onChange={(e) => {
+                  setAnimating(false);
+                  setUsState(e.target.value);
+                }}
+              >
+                <option></option>
+                <option>Alabama</option>
+                <option>Alaska</option>
+                <option>Arizona</option>
+                <option>Arkansas</option>
+                <option>California</option>
+                <option>Colorado</option>
+                <option>Connecticut</option>
+                <option>Delaware</option>
+                <option>Florida</option>
+                <option>Georgia</option>
+                <option>Hawaii</option>
+                <option>Idaho</option>
+                <option>Illinois</option>
+                <option>Indiana</option>
+                <option>Iowa</option>
+                <option>Kansas</option>
+                <option>Kentucky</option>
+                <option>Louisiana</option>
+                <option>Maine</option>
+                <option>Maryland</option>
+                <option>Massachusetts</option>
+                <option>Michigan</option>
+                <option>Minnesota</option>
+                <option>Mississippi</option>
+                <option>Missouri</option>
+                <option>Montana</option>
+                <option>Nebraska</option>
+                <option>Nevada</option>
+                <option>New Hampshire</option>
+                <option>New Jersey</option>
+                <option>New Mexico</option>
+                <option>New York</option>
+                <option>North Carolina</option>
+                <option>North Dakota</option>
+                <option>Ohio</option>
+                <option>Oklahoma</option>
+                <option>Oregon</option>
+                <option>Pennsylvania</option>
+                <option>Rhode Island</option>
+                <option>South Carolina</option>
+                <option>South Dakota</option>
+                <option>Tennessee</option>
+                <option>Texas</option>
+                <option>Utah</option>
+                <option>Vermont</option>
+                <option>Virginia</option>
+                <option>Washington</option>
+                <option>West Virginia</option>
+                <option>Wisconsin</option>
+                <option>Wyoming</option>
+              </Form.Control>
             </Col>
           </Form.Group>
         </Form>
