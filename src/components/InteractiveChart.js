@@ -8,7 +8,6 @@ import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import clsx from "clsx";
 import chroma from "chroma-js";
 import { generateSimData } from "../model";
-import "./InteractiveChart.scss";
 
 export default function InteractiveChart({
   initialDailyInfections,

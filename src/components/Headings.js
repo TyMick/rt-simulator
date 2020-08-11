@@ -1,7 +1,6 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import useBreakpoints from "use-window-width-breakpoints";
-import "./Headings.scss";
 
 export default function Headings() {
   const breakpoint = useBreakpoints();

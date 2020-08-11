@@ -1,5 +1,3 @@
-@import "../index";
-
 .long-heading {
   @include media-breakpoint-only("xs") {
     @include font-size(2.25rem);
