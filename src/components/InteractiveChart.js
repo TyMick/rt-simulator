@@ -140,7 +140,7 @@ export default function InteractiveChart({
               <Form.Control
                 type="range"
                 custom={true}
-                className="mx-"
+                style={{ height: "0.75rem" }}
                 min="0.5"
                 step="0.01"
                 max="1.5"
