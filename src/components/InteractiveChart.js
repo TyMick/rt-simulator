@@ -137,9 +137,9 @@ export default function InteractiveChart({
             <Col>
               <RangeSlider
                 inputProps={{ id: "rtSlider" }}
-                min="0.5"
-                step="0.01"
-                max="1.5"
+                min={0.5}
+                step={0.01}
+                max={1.5}
                 value={rt}
                 tooltipPlacement="top"
                 onChange={(e) => {
