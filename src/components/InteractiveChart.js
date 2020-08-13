@@ -1,28 +1,20 @@
 import React, { useState } from "react";
-import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { Container, Form, Col, Button } from "react-bootstrap";
 import RangeSlider from "react-bootstrap-range-slider";
-import { VegaLite } from "react-vega";
 import TeX from "@matejmazur/react-katex";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
-import clsx from "clsx";
 import chroma from "chroma-js";
-import { last } from "lodash";
 import useCovidData from "../hooks/useCovidData";
 import useAnimation from "../hooks/useAnimation";
+import ChartCaption from "./ChartCaption";
+import Chart from "./Chart";
 
 export default function InteractiveChart({
   setInitialDailyInfections,
   setUserHasChangedIDI,
   infectionSpreadSims,
 }) {
-  const yDomainMax = infectionSpreadSims
-    ? last(infectionSpreadSims["1.1"])?.newInfections
-    : null;
-
-  const bp = useWindowWidthBreakpoints();
-
   const [region, setRegion] = useState("");
   const [rt, setRt] = useState(1.1);
 
@@ -36,66 +28,20 @@ export default function InteractiveChart({
   const successColor = "#28a745";
   const warningColor = "#ffc107";
   const dangerColor = "#dc3545";
-  const rtColor = (rt) =>
-    chroma
+  function getRtColor(rt) {
+    return chroma
       .scale([successColor, warningColor, dangerColor])
       .domain([0.95, 1.05])(rt)
       .hex();
-
-  const vegaSpec = {
-    width: "container",
-    height: "container",
-    autosize: { contains: "padding" },
-    background: "transparent",
-    mark: { type: "line", clip: true },
-    data: { name: "spread" },
-    encoding: {
-      x: {
-        field: "date",
-        type: "temporal",
-        title: null,
-        axis: {
-          tickCount: "month",
-          labelFontSize: 14,
-          labelAngle: bp.xs ? -30 : 0,
-          labelOverlap: false,
-        },
-      },
-      y: {
-        field: "newInfections",
-        type: "quantitative",
-        title: bp.xs ? null : "Daily New Infections",
-        axis: {
-          titleFontSize: bp.xs ? 16 : 20,
-          titleFontWeight: 400,
-          labelFontSize: 14,
-        },
-        scale: { domainMax: yDomainMax },
-      },
-      color: { value: rtColor(rt) },
-    },
-  };
-  const infectionSpreadSim = {
-    spread: infectionSpreadSims ? infectionSpreadSims[rt] : null,
-  };
+  }
 
   const { stateData } = useCovidData();
 
   return (
     <>
-      {/* Chart */}
       <Container as="figure" fluid="xl" className="cap-width-lg mb-0">
-        <figcaption className={clsx("text-center mb-n2", bp.xs ? "h5" : "h4")}>
-          {bp.xs && <div className="h5 mb-0">Daily new infections when</div>}
-          <TeX
-            math={`R_t = ${rt}${rt.toString().length === 1 ? ".0" : ""}`}
-            style={{ color: rtColor(rt) }}
-          />
-          {/* Adding an invisible 0 for spacing on multiples of 0.1 */}
-          {rt.toString().length !== 4 && <TeX math="0" className="invisible" />}
-        </figcaption>
-
-        <VegaLite spec={vegaSpec} data={infectionSpreadSim} actions={false} />
+        <ChartCaption {...{ rt, getRtColor }} />
+        <Chart {...{ infectionSpreadSims, rt, getRtColor }} />
       </Container>
 
       {/* Interactive elements */}
