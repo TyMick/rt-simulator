@@ -4,7 +4,7 @@ import TeX from "@matejmazur/react-katex";
 
 export default function Introduction({
   initialDailyInfections,
-  usDailyAverage,
+  usDailyAvg,
   chartFirst,
 }) {
   return (
@@ -30,8 +30,8 @@ export default function Introduction({
           <>
             Well, see for yourself (with a starting point of{" "}
             {initialDailyInfections.toLocaleString()} daily infections
-            {initialDailyInfections === usDailyAverage
-              ? ", the current 7-day average in the United States"
+            {initialDailyInfections === usDailyAvg
+              ? ", the current 7-day average of new cases in the United States"
               : ""}
             ):
           </>
