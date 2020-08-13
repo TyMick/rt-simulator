@@ -13,4 +13,4 @@ Here's a GIF preview of the general idea:
 
 ![A preview showing the animated Rt simulation chart](/preview.gif)
 
-This project was bootstrapped with [Create React App](https://create-react-app.dev/), builds projections with a little help from [jStat](http://www.jstat.org/), visualizes those projections with [Vega-Lite](https://vega.github.io/vega-lite/), uses data from [R<sub>t</sub> Live](https://rt.live/), fetches the data with [SWR](https://swr.vercel.app/), and wrangles the data with [Data-Forge](http://www.data-forge-js.com/).
+This project was bootstrapped with [Create React App](https://create-react-app.dev/), builds projections with a little help from [jStat](http://www.jstat.org/), visualizes those projections with [Vega-Lite](https://vega.github.io/vega-lite/), uses data from [R<sub>t</sub> Live](https://rt.live/), fetches data with [SWR](https://swr.vercel.app/), and wrangles data with [Data-Forge](http://www.data-forge-js.com/).
