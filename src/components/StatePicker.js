@@ -9,7 +9,8 @@ export default function StatePicker({ region }) {
   return (
     <Form.Group as={Form.Row} controlId="statePicker">
       <Form.Label column xs={12} sm="auto">
-        Pick a U.S. state to fill its current <TeX>R_t</TeX> estimate:
+        Pick a U.S. state to fill its current <TeX>R_t</TeX> estimate and 7-day
+        average of new cases:
       </Form.Label>
       <Col xs={12} sm md="auto">
         <Form.Control

@@ -7,6 +7,7 @@ export const initialState = {
   initialDailyInfections: 10000,
   userChangedIDI: false,
   region: "",
+  usaNewCases7DayAvg: undefined,
   stateData: undefined,
 };
 
@@ -17,6 +18,7 @@ export function reducer(state, { type, payload }) {
     initialDailyInfections,
     userChangedIDI,
     region,
+    usaNewCases7DayAvg,
     stateData,
   } = state;
 
@@ -36,17 +38,13 @@ export function reducer(state, { type, payload }) {
       break;
 
     case "toggleAnimation":
-      if (animating) {
-        animating = false;
-      } else {
-        animating = true;
-        region = "";
-      }
+      animating = !animating;
+      region = "";
       break;
 
     case "covidDataLoaded":
-      const { usaNewCases7DayAvg, stateData: stateDataFromPayload } = payload;
-      stateData = stateDataFromPayload;
+      usaNewCases7DayAvg = payload.usaNewCases7DayAvg;
+      stateData = payload.stateData;
       // Don't suddenly fill in the current US average after the user has
       // already changed the initial daily infections number:
       if (!userChangedIDI) {
@@ -56,6 +54,12 @@ export function reducer(state, { type, payload }) {
 
     case "setInitialDailyInfections":
       initialDailyInfections = payload;
+      userChangedIDI = true;
+      region = "";
+      break;
+
+    case "resetInitialDailyInfections":
+      initialDailyInfections = usaNewCases7DayAvg;
       userChangedIDI = true;
       region = "";
       break;
@@ -82,6 +86,7 @@ export function reducer(state, { type, payload }) {
     initialDailyInfections,
     userChangedIDI,
     region,
+    usaNewCases7DayAvg,
     stateData,
   };
 }

@@ -47,6 +47,7 @@ export default function App() {
           rt={state.rt}
           initialDailyInfections={state.initialDailyInfections}
           animating={state.animating}
+          region={state.region}
         />
 
         {chartFirst && (

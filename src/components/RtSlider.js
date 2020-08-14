@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { Form, Col, Button } from "react-bootstrap";
+import { Form, Col } from "react-bootstrap";
 import RangeSlider from "react-bootstrap-range-slider";
 import TeX from "@matejmazur/react-katex";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { DispatchContext } from "../reducer";
+import IconButton from "./IconButton";
 
 export default function RtSlider({ rt, animating }) {
   const dispatch = useContext(DispatchContext);
@@ -30,14 +30,12 @@ export default function RtSlider({ rt, animating }) {
         />
       </Col>
       <Col xs="auto">
-        <Button
+        <IconButton
           variant="primary"
           aria-label={`${animating ? "Stop" : "Resume"} animation`}
           onClick={() => dispatch({ type: "toggleAnimation" })}
-          className="rounded-circle"
-        >
-          <FontAwesomeIcon icon={animating ? faPause : faPlay} />
-        </Button>
+          icon={animating ? faPause : faPlay}
+        />
       </Col>
     </Form.Group>
   );
