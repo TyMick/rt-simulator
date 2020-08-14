@@ -16,11 +16,10 @@ export default function Navbar() {
         <RBNavbar.Brand>
           <TeX>R_t</TeX> Simulator
         </RBNavbar.Brand>
-        <Nav>
+        <Nav className="mr-n2">
           <Nav.Link
             href="https://github.com/tywmick/rt-simulator"
             title="tywmick/rt-simulator on GitHub"
-            className="pr-0"
           >
             <FontAwesomeIcon icon={faGithub} size="2x" />
           </Nav.Link>
