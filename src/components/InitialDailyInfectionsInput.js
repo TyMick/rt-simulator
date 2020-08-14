@@ -19,7 +19,7 @@ export default function InitialDailyInfectionsInput({
           onChange={(e) => {
             // Try to extract a valid integer from the input value
             const fixedValue =
-              e.target.value.replace(/\D/g, "").replace(/^0+/, "") || 1;
+              e.target.value.replace(/\D/g, "").replace(/^0+/, "") || 0;
             dispatch({
               type: "setInitialDailyInfections",
               payload: parseInt(fixedValue),
