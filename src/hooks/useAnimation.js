@@ -1,51 +1,42 @@
 import { useState, useEffect } from "react";
-import { round } from "lodash";
 
 export default function useAnimation(
+  animating,
   rt,
-  setRt,
-  setRegion,
-  { animateAtStart = true, timeAtEnds = 3000, timeWhileMoving = 50 }
+  dispatch,
+  options = { timeAtEnds: 3000, timeWhileMoving: 50 }
 ) {
-  const [animating, setAnimating] = useState(animateAtStart);
-  const [animationDirection, setAnimationDirection] = useState("up");
+  const { timeAtEnds, timeWhileMoving } = options;
+  
+  const [direction, setDirection] = useState("up");
+
   useEffect(() => {
     if (animating) {
       let timer;
-      if (rt === 0.9 && animationDirection === "down") {
+      if (rt === 0.9 && direction === "down") {
         timer = setTimeout(() => {
-          setAnimationDirection("up");
-          setRt(0.91);
+          setDirection("up");
+          dispatch({ type: "incrementRt" });
         }, timeAtEnds);
-      } else if (rt === 1.1 && animationDirection === "up") {
+      } else if (rt === 1.1 && direction === "up") {
         timer = setTimeout(() => {
-          setAnimationDirection("down");
-          setRt(1.09);
+          setDirection("down");
+          dispatch({ type: "decrementRt" });
         }, timeAtEnds);
       } else {
-        const nextRt = round(
-          animationDirection === "up" ? rt + 0.01 : rt - 0.01,
-          2
-        );
         timer = setTimeout(() => {
-          setRt(nextRt);
+          dispatch({
+            type: direction === "up" ? "incrementRt" : "decrementRt",
+          });
         }, timeWhileMoving);
       }
       return () => clearTimeout(timer);
-    }
-  }, [rt, setRt, animating, animationDirection, timeAtEnds, timeWhileMoving]);
-
-  function toggleAnimation() {
-    if (!animating) {
-      setRegion("");
+    } else {
       if (rt < 1.1) {
-        setAnimationDirection("up");
+        setDirection("up");
       } else {
-        setAnimationDirection("down");
+        setDirection("down");
       }
     }
-    setAnimating(!animating);
-  }
-
-  return { animating, setAnimating, toggleAnimation };
+  }, [animating, rt, dispatch, direction, timeAtEnds, timeWhileMoving]);
 }

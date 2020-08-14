@@ -1,23 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, Col, Button } from "react-bootstrap";
 import RangeSlider from "react-bootstrap-range-slider";
 import TeX from "@matejmazur/react-katex";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { DispatchContext } from "../reducer";
 
-export default function RtSlider({
-  rt,
-  setRt,
-  animating,
-  setAnimating,
-  toggleAnimation,
-  setRegion,
-}) {
+export default function RtSlider({ rt, animating }) {
+  const dispatch = useContext(DispatchContext);
+
   return (
     <Form.Group
       as={Form.Row}
       controlId="rtSlider"
-      className="align-items-center mb-0 mb-sm-2"
+      className="align-items-center mb-2 mb-sm-3"
     >
       <Form.Label column xs="auto">
         <TeX>R_t</TeX> slider
@@ -30,18 +26,14 @@ export default function RtSlider({
           max={1.5}
           value={rt}
           tooltipPlacement="top"
-          onChange={(e) => {
-            setAnimating(false);
-            setRegion("");
-            setRt(parseFloat(e.target.value));
-          }}
+          onChange={(e) => dispatch({ type: "setRt", payload: e.target.value })}
         />
       </Col>
       <Col xs="auto">
         <Button
           variant="primary"
           aria-label={`${animating ? "Stop" : "Resume"} animation`}
-          onClick={toggleAnimation}
+          onClick={() => dispatch({ type: "toggleAnimation" })}
           className="rounded-circle"
         >
           <FontAwesomeIcon icon={animating ? faPause : faPlay} />

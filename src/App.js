@@ -1,39 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import useWindowOrientation from "use-window-orientation";
-import { round } from "lodash";
-import { generateSimData } from "./model";
+import { initialState, reducer, DispatchContext } from "./reducer";
+import useAnimation from "./hooks/useAnimation";
+import useCovidData from "./hooks/useCovidData";
 import Navbar from "./components/Navbar";
 import Headings from "./components/Headings";
 import Introduction from "./components/Introduction";
 import InteractiveChart from "./components/InteractiveChart";
-import useCovidData from "./hooks/useCovidData";
 
 export default function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useAnimation(state.animating, state.rt, dispatch);
+
+  const { covidDataLoaded, usaNewCases7DayAvg, stateData } = useCovidData();
+  useEffect(() => {
+    if (covidDataLoaded) {
+      dispatch({
+        type: "covidDataLoaded",
+        payload: { usaNewCases7DayAvg, stateData },
+      });
+    }
+  }, [covidDataLoaded, usaNewCases7DayAvg, stateData]);
+
   const breakpoint = useWindowWidthBreakpoints();
   const { portrait, landscape } = useWindowOrientation();
   const chartFirst =
     (portrait && breakpoint.xs) || (landscape && breakpoint.down.md);
 
-  const { usaNewCases7DayAvg } = useCovidData();
-  const [initialDailyInfections, setInitialDailyInfections] = useState(8000);
-  // Just so I don't suddenly fill in the current US average after the user has
-  // already fiddled with the initial daily infection setting:
-  const [idiHasChanged, setIdiHasChanged] = useState(false);
-  useEffect(() => {
-    if (usaNewCases7DayAvg && !idiHasChanged) {
-      setInitialDailyInfections(usaNewCases7DayAvg);
-    }
-  }, [usaNewCases7DayAvg, idiHasChanged]);
-
-  let infectionSpreadSims = {};
-  for (let rt = 0; rt <= 3; rt = round(rt + 0.01, 2)) {
-    console.log("calculatingcalculatingcalculating");
-    infectionSpreadSims[rt] = generateSimData(rt, initialDailyInfections);
-  }
-
   return (
-    <>
+    <DispatchContext.Provider value={dispatch}>
       <Navbar />
 
       <main>
@@ -41,33 +38,24 @@ export default function App() {
 
         {!chartFirst && (
           <Introduction
-            {...{
-              initialDailyInfections,
-              usDailyAvg: usaNewCases7DayAvg,
-              chartFirst,
-            }}
+            initialDailyInfections={state.initialDailyInfections}
+            chartFirst={chartFirst}
           />
         )}
 
         <InteractiveChart
-          {...{
-            initialDailyInfections,
-            setInitialDailyInfections,
-            setUserHasChangedIDI: setIdiHasChanged,
-            infectionSpreadSims,
-          }}
+          rt={state.rt}
+          initialDailyInfections={state.initialDailyInfections}
+          animating={state.animating}
         />
 
         {chartFirst && (
           <Introduction
-            {...{
-              initialDailyInfections,
-              usDailyAvg: usaNewCases7DayAvg,
-              chartFirst,
-            }}
+            initialDailyInfections={state.initialDailyInfections}
+            chartFirst={chartFirst}
           />
         )}
       </main>
-    </>
+    </DispatchContext.Provider>
   );
 }

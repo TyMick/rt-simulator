@@ -1,28 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container, Form } from "react-bootstrap";
 import chroma from "chroma-js";
 import useCovidData from "../hooks/useCovidData";
-import useAnimation from "../hooks/useAnimation";
 import ChartCaption from "./ChartCaption";
 import Chart from "./Chart";
 import RtSlider from "./RtSlider";
 import StatePicker from "./StatePicker";
 
 export default function InteractiveChart({
-  setInitialDailyInfections,
-  setUserHasChangedIDI,
-  infectionSpreadSims,
+  rt,
+  animating,
+  initialDailyInfections,
+  region,
 }) {
-  const [region, setRegion] = useState("");
-  const [rt, setRt] = useState(1.1);
-
-  const { animating, setAnimating, toggleAnimation } = useAnimation(
-    rt,
-    setRt,
-    setRegion,
-    { animateAtStart: true }
-  );
-
   const successColor = "#28a745";
   const warningColor = "#ffc107";
   const dangerColor = "#dc3545";
@@ -33,40 +23,19 @@ export default function InteractiveChart({
       .hex();
   }
 
-  const { stateData } = useCovidData();
+  const { covidDataLoaded } = useCovidData();
 
   return (
     <>
       <Container as="figure" fluid="xl" className="cap-width-lg mb-0">
         <ChartCaption {...{ rt, getRtColor }} />
-        <Chart {...{ infectionSpreadSims, rt, getRtColor }} />
+        <Chart {...{ rt, getRtColor, initialDailyInfections }} />
       </Container>
 
-      {/* Interactive elements */}
       <Container className="cap-width-lg">
         <Form>
-          <RtSlider
-            {...{
-              rt,
-              setRt,
-              animating,
-              setAnimating,
-              toggleAnimation,
-              setRegion,
-            }}
-          />
-          {stateData && (
-            <StatePicker
-              {...{
-                setRt,
-                setInitialDailyInfections,
-                region,
-                setRegion,
-                setAnimating,
-                setUserHasChangedIDI,
-              }}
-            />
-          )}
+          <RtSlider {...{ rt, animating }} />
+          {covidDataLoaded && <StatePicker {...{ region }} />}
         </Form>
       </Container>
     </>

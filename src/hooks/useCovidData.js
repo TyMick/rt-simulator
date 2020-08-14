@@ -4,21 +4,18 @@ import { fromCSV } from "data-forge";
 import { isAfter, subDays, isEqual } from "date-fns";
 import { round } from "lodash";
 
-export default function useCovidData() {
-  const {
-    data,
-    error,
-    isValidating,
-  } = useSWR(
+export default function useCovidData(initialData, options) {
+  const { data, error, isValidating } = useSWR(
     "https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv",
     fetchRtData,
-    { revalidateOnFocus: false }
+    Object.assign({ revalidateOnFocus: false }, options)
   );
 
   return {
     covidDataLoaded: data !== undefined,
-    usaNewCases7DayAvg: data?.usaNewCases7DayAvg,
-    stateData: data?.stateData,
+    usaNewCases7DayAvg:
+      data?.usaNewCases7DayAvg ?? initialData?.usaNewCases7DayAvg,
+    stateData: data?.stateData ?? initialData?.stateData,
     error,
     isValidating,
   };
@@ -31,8 +28,8 @@ async function fetchRtData(csvUrl) {
       const csvBlob = await csvResponse.blob();
       const csvText = await new Promise((resolve, reject) => {
         let reader = new FileReader();
-        reader.onload = function (e) {
-          resolve(e.target.result);
+        reader.onload = function (event) {
+          resolve(event.target.result);
         };
         reader.readAsText(csvBlob);
       });
@@ -43,8 +40,8 @@ async function fetchRtData(csvUrl) {
       error.response = csvResponse;
       throw error;
     }
-  } catch (e) {
-    throw e;
+  } catch (err) {
+    throw err;
   }
 }
 

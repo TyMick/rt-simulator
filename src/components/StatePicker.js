@@ -1,17 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, Col } from "react-bootstrap";
 import TeX from "@matejmazur/react-katex";
-import useCovidData from "../hooks/useCovidData";
+import { DispatchContext } from "../reducer";
 
-export default function StatePicker({
-  setRt,
-  setInitialDailyInfections,
-  region,
-  setRegion,
-  setAnimating,
-  setUserHasChangedIDI,
-}) {
-  const { stateData } = useCovidData();
+export default function StatePicker({ region }) {
+  const dispatch = useContext(DispatchContext);
 
   return (
     <Form.Group as={Form.Row} controlId="statePicker">
@@ -24,15 +17,7 @@ export default function StatePicker({
           value={region}
           custom
           onChange={(e) => {
-            setAnimating(false);
-            setUserHasChangedIDI(true);
-
-            const region = e.target.value;
-            setRegion(region);
-            if (region) {
-              setRt(stateData[region].rtEstimate);
-              setInitialDailyInfections(stateData[region].newCases7DayAvg);
-            }
+            dispatch({ type: "setRegion", payload: e.target.value });
           }}
         >
           <option></option>

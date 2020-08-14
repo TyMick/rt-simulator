@@ -1,12 +1,11 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import TeX from "@matejmazur/react-katex";
+import useCovidData from "../hooks/useCovidData";
 
-export default function Introduction({
-  initialDailyInfections,
-  usDailyAvg,
-  chartFirst,
-}) {
+export default function Introduction({ initialDailyInfections, chartFirst }) {
+  const { usaNewCases7DayAvg } = useCovidData();
+
   return (
     <Container fluid="md" className="cap-width-lg mb-4">
       <p>
@@ -30,7 +29,7 @@ export default function Introduction({
           <>
             Well, see for yourself (with a starting point of{" "}
             {initialDailyInfections.toLocaleString()} daily infections
-            {initialDailyInfections === usDailyAvg
+            {initialDailyInfections === usaNewCases7DayAvg
               ? ", the current 7-day average of new cases in the United States"
               : ""}
             ):

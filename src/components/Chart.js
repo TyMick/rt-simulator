@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useMemo } from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { VegaLite } from "react-vega";
 import { last } from "lodash";
+import { generateSimData } from "../model";
 
-export default function Chart({ infectionSpreadSims, rt, getRtColor }) {
+export default function Chart({ rt, getRtColor, initialDailyInfections }) {
   const breakpoint = useWindowWidthBreakpoints();
 
-  const yDomainMax = infectionSpreadSims
-    ? last(infectionSpreadSims["1.1"])?.newInfections
-    : null;
+  const infectionSpreadSim = useMemo(
+    () => generateSimData(rt, initialDailyInfections),
+    [rt, initialDailyInfections]
+  );
+  const yDomainMax = useMemo(
+    () => last(generateSimData(1.1, initialDailyInfections)).newInfections,
+    [initialDailyInfections]
+  );
 
   const vegaSpec = {
     width: "container",
@@ -47,9 +53,11 @@ export default function Chart({ infectionSpreadSims, rt, getRtColor }) {
       },
     ],
   };
-  const infectionSpreadSim = {
-    spread: infectionSpreadSims ? infectionSpreadSims[rt] : null,
+  const infectionSpreadSimData = {
+    spread: infectionSpreadSim,
   };
 
-  return <VegaLite spec={vegaSpec} data={infectionSpreadSim} actions={false} />;
+  return (
+    <VegaLite spec={vegaSpec} data={infectionSpreadSimData} actions={false} />
+  );
 }
