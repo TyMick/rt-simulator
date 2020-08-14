@@ -5,6 +5,7 @@ import useCovidData from "../hooks/useCovidData";
 import ChartCaption from "./ChartCaption";
 import Chart from "./Chart";
 import RtSlider from "./RtSlider";
+import InitialDailyInfectionsInput from "./InitialDailyInfectionsInput";
 import StatePicker from "./StatePicker";
 
 export default function InteractiveChart({
@@ -35,6 +36,7 @@ export default function InteractiveChart({
       <Container className="cap-width-lg">
         <Form>
           <RtSlider {...{ rt, animating }} />
+          <InitialDailyInfectionsInput {...{ initialDailyInfections }} />
           {covidDataLoaded && <StatePicker {...{ region }} />}
         </Form>
       </Container>
