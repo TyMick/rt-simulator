@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { memo, useContext } from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { Form, Col } from "react-bootstrap";
 import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
@@ -6,9 +6,7 @@ import { DispatchContext } from "../reducer";
 import useCovidData from "../hooks/useCovidData";
 import IconButton from "./IconButton";
 
-export default function InitialDailyInfectionsInput({
-  initialDailyInfections,
-}) {
+const InitialDailyInfectionsInput = memo(({ initialDailyInfections }) => {
   const dispatch = useContext(DispatchContext);
   const { covidDataLoaded, usaNewCases7DayAvg } = useCovidData();
 
@@ -47,4 +45,6 @@ export default function InitialDailyInfectionsInput({
       )}
     </Form.Group>
   );
-}
+});
+
+export default InitialDailyInfectionsInput;

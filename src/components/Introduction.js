@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import { Container } from "react-bootstrap";
 import TeX from "@matejmazur/react-katex";
 import useCovidData from "../hooks/useCovidData";
 
-export default function Introduction({ initialDailyInfections, chartFirst }) {
+const Introduction = memo(({ initialDailyInfections, chartFirst }) => {
   const { usaNewCases7DayAvg } = useCovidData();
 
   return (
@@ -38,4 +38,6 @@ export default function Introduction({ initialDailyInfections, chartFirst }) {
       </p>
     </Container>
   );
-}
+});
+
+export default Introduction;

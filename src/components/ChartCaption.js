@@ -19,13 +19,11 @@ export default function ChartCaption({ rt, rtLower80, rtUpper80, getRtColor }) {
         }`}
         style={{ color: getRtColor(rt) }}
       />
-      {
-        // Adding an invisible 0 for spacing on multiples of 0.1 when not using
-        // confidence intervals
-        rt.toString().length !== 4 && rtLower80 === undefined && (
-          <TeX math="0" className="invisible" />
-        )
-      }
+      {/* Adding an invisible 0 for spacing on multiples of 0.1 when not using
+      //* confidence intervals */}
+      {rt.toString().length !== 4 && rtLower80 === undefined && (
+        <TeX math="0" className="invisible" />
+      )}
 
       {rtLower80 && rtUpper80 && (
         <>

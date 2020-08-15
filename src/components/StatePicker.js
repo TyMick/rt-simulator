@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React, { memo, useContext } from "react";
 import { Form, Col } from "react-bootstrap";
 import TeX from "@matejmazur/react-katex";
 import { DispatchContext } from "../reducer";
 
-export default function StatePicker({ region }) {
+const StatePicker = memo(({ region }) => {
   const dispatch = useContext(DispatchContext);
 
   return (
@@ -76,4 +76,6 @@ export default function StatePicker({ region }) {
       </Col>
     </Form.Group>
   );
-}
+});
+
+export default StatePicker;

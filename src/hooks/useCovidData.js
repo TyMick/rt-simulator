@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import useSWR from "swr";
 import fetch from "unfetch";
 import { fromCSV } from "data-forge";
@@ -7,12 +8,18 @@ import { round } from "lodash";
 // Rt Live only requires attribution for data use: https://rt.live/faq#may-i-display-your-data-elsewhere-eg-my-site-publication-etc
 const rtLiveDataUrl = "https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv";
 
-export default function useCovidData(initialData, options) {
+export default function useCovidData(dispatch, initialData, options) {
   const { data, error, isValidating } = useSWR(
     rtLiveDataUrl,
     fetchRtData,
     Object.assign({ revalidateOnFocus: false }, options)
   );
+
+  useEffect(() => {
+    if (dispatch && data) {
+      dispatch({ type: "covidDataLoaded", payload: data });
+    }
+  }, [dispatch, data]);
 
   return {
     covidDataLoaded: data !== undefined,
