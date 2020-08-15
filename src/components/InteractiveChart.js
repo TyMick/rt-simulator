@@ -19,10 +19,10 @@ export default function InteractiveChart({
   const successColor = "#28a745";
   const warningColor = "#ffc107";
   const dangerColor = "#dc3545";
-  function getRtColor(rt) {
+  function getRtColor(r) {
     return chroma
       .scale([successColor, warningColor, dangerColor])
-      .domain([0.9, 1.1])(rt)
+      .domain([0.9, 1.1])(r)
       .hex();
   }
 
@@ -31,7 +31,10 @@ export default function InteractiveChart({
   return (
     <>
       <Container as="figure" fluid="xl" className="cap-width-lg mb-0">
-        <ChartCaption {...{ rt, rtLower80, rtUpper80, getRtColor }} />
+        <ChartCaption
+          {...{ rt, rtLower80, rtUpper80 }}
+          rtColor={getRtColor(rt)}
+        />
         <Chart
           {...{ rt, rtLower80, rtUpper80, getRtColor, initialDailyInfections }}
         />

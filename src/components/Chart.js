@@ -8,7 +8,7 @@ export default function Chart({
   rt,
   rtLower80,
   rtUpper80,
-  getRtColor,
+  rtColor,
   initialDailyInfections,
 }) {
   const windowBp = useWindowWidthBreakpoints();
@@ -51,9 +51,7 @@ export default function Chart({
       encoding: {
         y: { field: getField(i - 1), type: "quantitative" },
         y2: { field: getField(i), type: "quantitative" },
-        color: {
-          value: getRtColor((ciBreakpoints[i - 1] + ciBreakpoints[i]) / 2),
-        },
+        color: { value: rtColor },
         opacity: { value: (1 - Math.abs(i - midpoint) / midpoint) ** 3 },
       },
     });
@@ -92,7 +90,7 @@ export default function Chart({
             },
             scale: { domainMax: yDomainMax },
           },
-          color: { value: getRtColor(rt) },
+          color: { value: rtColor },
         },
       },
       ...ciLayers,
