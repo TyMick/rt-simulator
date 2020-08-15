@@ -32,7 +32,6 @@ export default function Chart({
     }
     ciColorBreakpoints.push(rtUpper80);
   }
-  console.log({rtLower80, rtUpper80, rt, ciColorBreakpoints})
 
   const infectionSpreadSim = useMemo(
     () => generateSimData(rt, initialDailyInfections, ciColorBreakpoints),
@@ -42,7 +41,6 @@ export default function Chart({
   let ciLayers = [];
   for (let i = 1; i < ciColorBreakpoints.length; i++) {
     const [low, high] = [ciColorBreakpoints[i - 1], ciColorBreakpoints[i]];
-    console.log({low, high})
     const getField = (rt) => `ciBreakpoint${padStart(round(rt * 100), 3, "0")}`;
 
     ciLayers.push({
