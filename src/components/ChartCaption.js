@@ -9,7 +9,7 @@ export default function ChartCaption({ rt, rtLower80, rtUpper80, getRtColor }) {
 
   return (
     <figcaption
-      className={clsx("text-center mb-n1 mb-sm-n2", bp.xs ? "h5" : "h4")}
+      className={clsx("text-center mb-n1", bp.xs ? "h5" : "h4")}
     >
       {bp.xs && <div className="h5 mb-0">Daily new infections when</div>}
 
@@ -29,7 +29,13 @@ export default function ChartCaption({ rt, rtLower80, rtUpper80, getRtColor }) {
         <>
           <TeX math={`\\scriptsize \\text{80\\% }`} className="ml-3 ml-sm-4" />
           <OverlayTrigger
-            overlay={<Tooltip id="CI">confidence interval</Tooltip>}
+            overlay={
+              <Tooltip id="CI">
+                Confidence Interval
+                <br />
+                (the shaded part of the graph)
+              </Tooltip>
+            }
           >
             <TeX
               math={`\\scriptsize \\text{CI}`}

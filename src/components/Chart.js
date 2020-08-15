@@ -1,14 +1,14 @@
 import React, { useMemo } from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { VegaLite } from "react-vega";
-import { last, padStart } from "lodash";
+import { last, round } from "lodash";
 import { generateSimData } from "../model";
 
 export default function Chart({
   rt,
   rtLower80,
   rtUpper80,
-  rtColor,
+  getRtColor,
   initialDailyInfections,
 }) {
   const windowBp = useWindowWidthBreakpoints();
@@ -24,15 +24,13 @@ export default function Chart({
   // confidence interval as I do with individual lines.
   let ciBreakpoints = [];
   if (rtLower80 && rtUpper80) {
-    const lowerGap = rt - rtLower80;
-    const upperGap = rtUpper80 - rt;
-    const stepsPerSide = 100;
-    for (let i = 0; i < stepsPerSide; i++) {
-      ciBreakpoints.push(rtLower80 + (i / stepsPerSide) * lowerGap);
+    ciBreakpoints.push(rtLower80);
+    for (let r = 0.9; r <= 1.1; r = round(r + 0.01, 2)) {
+      if (rtLower80 < r && r < rtUpper80) {
+        ciBreakpoints.push(r);
+      }
     }
-    for (let i = 0; i <= stepsPerSide; i++) {
-      ciBreakpoints.push(rt + (i / stepsPerSide) * upperGap);
-    }
+    ciBreakpoints.push(rtUpper80);
   }
 
   const infectionSpreadSim = generateSimData(
@@ -42,17 +40,16 @@ export default function Chart({
   );
 
   let ciLayers = [];
-  const midpoint = ciBreakpoints.length / 2;
   for (let i = 1; i < ciBreakpoints.length; i++) {
-    const getField = (index) => `ciBreakpoint${padStart(index, 3, "0")}`;
-
     ciLayers.push({
       mark: { type: "area", clip: true },
       encoding: {
-        y: { field: getField(i - 1), type: "quantitative" },
-        y2: { field: getField(i), type: "quantitative" },
-        color: { value: rtColor },
-        opacity: { value: (1 - Math.abs(i - midpoint) / midpoint) ** 3 },
+        y: { field: `ciBreakpoint${i - 1}`, type: "quantitative" },
+        y2: { field: `ciBreakpoint${i}`, type: "quantitative" },
+        color: {
+          value: getRtColor((ciBreakpoints[i - 1] + ciBreakpoints[i]) / 2),
+        },
+        opacity: { value: 0.1 },
       },
     });
   }
@@ -90,7 +87,7 @@ export default function Chart({
             },
             scale: { domainMax: yDomainMax },
           },
-          color: { value: rtColor },
+          color: { value: getRtColor(rt) },
         },
       },
       ...ciLayers,

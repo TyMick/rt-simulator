@@ -33,8 +33,7 @@ export default function InteractiveChart({
       <Container as="figure" fluid="xl" className="cap-width-lg mb-0">
         <ChartCaption {...{ rt, rtLower80, rtUpper80, getRtColor }} />
         <Chart
-          {...{ rt, rtLower80, rtUpper80, initialDailyInfections }}
-          rtColor={getRtColor(rt)}
+          {...{ rt, rtLower80, rtUpper80, getRtColor, initialDailyInfections }}
         />
       </Container>
 
