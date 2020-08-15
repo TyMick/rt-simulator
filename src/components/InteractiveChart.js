@@ -17,7 +17,7 @@ export default function InteractiveChart({
   region,
 }) {
   const successColor = "#28a745";
-  const warningColor = "#ffc107";
+  const warningColor = chroma("#ffc107").darken(0.5).hex();
   const dangerColor = "#dc3545";
   function getRtColor(r) {
     return chroma
