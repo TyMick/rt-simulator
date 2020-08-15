@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
+import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { Form, Col } from "react-bootstrap";
+import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
 import { DispatchContext } from "../reducer";
 import useCovidData from "../hooks/useCovidData";
-import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
 import IconButton from "./IconButton";
 
 export default function InitialDailyInfectionsInput({
@@ -11,15 +12,17 @@ export default function InitialDailyInfectionsInput({
   const dispatch = useContext(DispatchContext);
   const { covidDataLoaded, usaNewCases7DayAvg } = useCovidData();
 
+  const breakpoint = useWindowWidthBreakpoints();
+
   return (
     <Form.Group as={Form.Row} controlId="idiInput" className="mb-2 mb-sm-3">
       <Form.Label column xs="auto">
         Initial daily infections:
       </Form.Label>
-      <Col xs="auto">
+      <Col xs sm="auto">
         <Form.Control
           value={initialDailyInfections.toLocaleString()}
-          style={{ width: "7.75em" }}
+          style={{ ...(breakpoint.up.sm && { width: "7.75em" }) }}
           onChange={(e) => {
             // Try to extract a valid integer from the input value
             const fixedValue =

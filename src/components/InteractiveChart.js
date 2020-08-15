@@ -10,6 +10,8 @@ import StatePicker from "./StatePicker";
 
 export default function InteractiveChart({
   rt,
+  rtLower80,
+  rtUpper80,
   animating,
   initialDailyInfections,
   region,
@@ -20,7 +22,7 @@ export default function InteractiveChart({
   function getRtColor(rt) {
     return chroma
       .scale([successColor, warningColor, dangerColor])
-      .domain([0.95, 1.05])(rt)
+      .domain([0.9, 1.1])(rt)
       .hex();
   }
 
@@ -29,8 +31,10 @@ export default function InteractiveChart({
   return (
     <>
       <Container as="figure" fluid="xl" className="cap-width-lg mb-0">
-        <ChartCaption {...{ rt, getRtColor }} />
-        <Chart {...{ rt, getRtColor, initialDailyInfections }} />
+        <ChartCaption {...{ rt, rtLower80, rtUpper80, getRtColor }} />
+        <Chart
+          {...{ rt, rtLower80, rtUpper80, getRtColor, initialDailyInfections }}
+        />
       </Container>
 
       <Container className="cap-width-lg">

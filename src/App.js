@@ -45,6 +45,8 @@ export default function App() {
 
         <InteractiveChart
           rt={state.rt}
+          rtLower80={state.rtLower80}
+          rtUpper80={state.rtUpper80}
           initialDailyInfections={state.initialDailyInfections}
           animating={state.animating}
           region={state.region}

@@ -1,16 +1,19 @@
 import React from "react";
+import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { Navbar as RBNavbar, Container, Nav } from "react-bootstrap";
 import TeX from "@matejmazur/react-katex";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 export default function Navbar() {
+  const breakpoint = useWindowWidthBreakpoints();
+
   return (
     <RBNavbar
       as="header"
       variant="dark"
       bg="dark"
-      style={{ marginBottom: "2rem" }}
+      style={{ marginBottom: breakpoint.xs ? "1.5rem" : "2rem" }}
     >
       <Container fluid="xl">
         <RBNavbar.Brand>

@@ -3,6 +3,8 @@ import { round } from "lodash";
 
 export const initialState = {
   rt: 1.1,
+  rtLower80: undefined,
+  rtUpper80: undefined,
   animating: true,
   initialDailyInfections: 10000,
   userChangedIDI: false,
@@ -14,6 +16,8 @@ export const initialState = {
 export function reducer(state, { type, payload }) {
   let {
     rt,
+    rtLower80,
+    rtUpper80,
     animating,
     initialDailyInfections,
     userChangedIDI,
@@ -27,6 +31,8 @@ export function reducer(state, { type, payload }) {
       rt = payload;
       animating = false;
       region = "";
+      rtLower80 = undefined;
+      rtUpper80 = undefined;
       break;
 
     case "incrementRt":
@@ -38,8 +44,14 @@ export function reducer(state, { type, payload }) {
       break;
 
     case "toggleAnimation":
-      animating = !animating;
-      region = "";
+      if (animating) {
+        animating = false;
+      } else {
+        animating = true;
+        region = "";
+        rtLower80 = undefined;
+        rtUpper80 = undefined;
+      }
       break;
 
     case "covidDataLoaded":
@@ -56,18 +68,27 @@ export function reducer(state, { type, payload }) {
       initialDailyInfections = payload;
       userChangedIDI = true;
       region = "";
+      rtLower80 = undefined;
+      rtUpper80 = undefined;
       break;
 
     case "resetInitialDailyInfections":
       initialDailyInfections = usaNewCases7DayAvg;
       userChangedIDI = true;
       region = "";
+      rtLower80 = undefined;
+      rtUpper80 = undefined;
       break;
 
     case "setRegion":
       region = payload;
-      if (payload !== "") {
-        rt = stateData[region].rtEstimate;
+      if (payload === "") {
+        rtLower80 = undefined;
+        rtUpper80 = undefined;
+      } else {
+        rt = stateData[region].rtEstimate.median;
+        rtLower80 = stateData[region].rtEstimate.lower_80;
+        rtUpper80 = stateData[region].rtEstimate.upper_80;
         animating = false;
         initialDailyInfections = stateData[region].newCases7DayAvg;
         userChangedIDI = true;
@@ -82,6 +103,8 @@ export function reducer(state, { type, payload }) {
 
   return {
     rt,
+    rtLower80,
+    rtUpper80,
     animating,
     initialDailyInfections,
     userChangedIDI,

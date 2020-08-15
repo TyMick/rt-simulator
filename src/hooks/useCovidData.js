@@ -4,9 +4,12 @@ import { fromCSV } from "data-forge";
 import { isAfter, subDays, isEqual } from "date-fns";
 import { round } from "lodash";
 
+// Rt Live only requires attribution for data use: https://rt.live/faq#may-i-display-your-data-elsewhere-eg-my-site-publication-etc
+const rtLiveDataUrl = "https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv";
+
 export default function useCovidData(initialData, options) {
   const { data, error, isValidating } = useSWR(
-    "https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv",
+    rtLiveDataUrl,
     fetchRtData,
     Object.assign({ revalidateOnFocus: false }, options)
   );
@@ -67,7 +70,7 @@ function formatRtData(csvString) {
     ])
     .bake();
   const subset = fullData
-    .subset(["date", "region", "mean", "new_cases"])
+    .subset(["date", "region", "median", "lower_80", "upper_80", "new_cases"])
     .bake();
 
   const latestDate = new Date(fullData.getSeries("date").max());
@@ -91,11 +94,18 @@ function formatRtData(csvString) {
     return round(avg);
   }
   function getRtEstimate(region) {
-    const estimate = lastDay
-      .where((row) => row.region === region)
-      .getSeries("mean")
-      .average();
-    return round(estimate, 2);
+    const getField = (field) => {
+      const value = lastDay
+        .where((row) => row.region === region)
+        .getSeries(field)
+        .average();
+      return round(value, 2);
+    };
+    return {
+      median: getField("median"),
+      lower_80: getField("lower_80"),
+      upper_80: getField("upper_80"),
+    };
   }
 
   const regions = lastWeek.getSeries("region").distinct().toArray();
