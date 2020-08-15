@@ -3,7 +3,7 @@
  */
 import { jStat } from "jstat";
 import { startOfToday, addDays } from "date-fns";
-import { padStart, round } from "lodash";
+import { padStart } from "lodash";
 
 const meanSI = 4.7;
 const stdSI = 2.9;
@@ -14,7 +14,7 @@ const generationTime = jStat.lognormal(muSI, sigmaSI);
 export function generateSimData(
   rtMedian,
   initialDailyInfections,
-  ciColorBreakpoints = [],
+  ciBreakpoints = [],
   options = {}
 ) {
   const { lengthInMonths = 4, startDate = startOfToday() } = options;
@@ -42,8 +42,8 @@ export function generateSimData(
     }
 
     fillNewInfections(rtMedian, "medianNewInfections");
-    for (let rt of ciColorBreakpoints) {
-      fillNewInfections(rt, `ciBreakpoint${padStart(round((rt * 100)), 3, "0")}`);
+    for (let i = 0; i < ciBreakpoints.length; i++) {
+      fillNewInfections(ciBreakpoints[i], `ciBreakpoint${padStart(i, 3, "0")}`);
     }
 
     data.push(datum);
