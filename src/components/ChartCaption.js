@@ -14,7 +14,9 @@ export default function ChartCaption({ rt, rtLower80, rtUpper80, getRtColor }) {
       {bp.xs && <div className="h5 mb-0">Daily new infections when</div>}
 
       <TeX
-        math={`R_t = ${rt}${rt.toString().length === 1 ? ".0" : ""}`}
+        math={`R_t ${rtLower80 && rtUpper80 ? "\\approx" : "="} ${rt}${
+          rt.toString().length === 1 ? ".0" : ""
+        }`}
         style={{ color: getRtColor(rt) }}
       />
       {
