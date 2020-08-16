@@ -5,6 +5,7 @@ import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
 import { DispatchContext } from "../reducer";
 import useCovidData from "../hooks/useCovidData";
 import IconButton from "./IconButton";
+import clsx from "clsx";
 
 const InitialDailyInfectionsInput = memo(({ initialDailyInfections }) => {
   const dispatch = useContext(DispatchContext);
@@ -13,7 +14,11 @@ const InitialDailyInfectionsInput = memo(({ initialDailyInfections }) => {
   const breakpoint = useWindowWidthBreakpoints();
 
   return (
-    <Form.Group as={Form.Row} controlId="idiInput" className="mb-2 mb-sm-3">
+    <Form.Group
+      as={Form.Row}
+      controlId="idiInput"
+      className="mb-2 justify-content-md-center"
+    >
       <Form.Label column xs="auto">
         Initial daily infections:
       </Form.Label>
@@ -32,8 +37,14 @@ const InitialDailyInfectionsInput = memo(({ initialDailyInfections }) => {
           }}
         />
       </Col>
-      {covidDataLoaded && initialDailyInfections !== usaNewCases7DayAvg && (
-        <Col xs="auto">
+      {covidDataLoaded && (
+        <Col
+          xs="auto"
+          className={clsx(
+            initialDailyInfections === usaNewCases7DayAvg &&
+              (breakpoint.xs ? "d-none" : "invisible")
+          )}
+        >
           <IconButton
             variant="primary"
             tooltip="Reset to current United States 7-day average"

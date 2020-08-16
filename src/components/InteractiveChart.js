@@ -37,7 +37,7 @@ export default function InteractiveChart({
         />
       </Container>
 
-      <Container className="cap-width-lg">
+      <Container fluid="md" className="cap-width-lg">
         <Form>
           <RtSlider {...{ rt, animating }} />
           <InitialDailyInfectionsInput {...{ initialDailyInfections }} />

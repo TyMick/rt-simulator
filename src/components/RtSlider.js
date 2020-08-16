@@ -13,7 +13,7 @@ export default function RtSlider({ rt, animating }) {
     <Form.Group
       as={Form.Row}
       controlId="rtSlider"
-      className="align-items-center mb-2 mb-sm-3"
+      className="align-items-center mb-2"
     >
       <Form.Label column xs="auto">
         <TeX>R_t</TeX> slider

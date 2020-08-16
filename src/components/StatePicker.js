@@ -1,22 +1,28 @@
 import React, { memo, useContext } from "react";
+import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { Form, Col } from "react-bootstrap";
 import TeX from "@matejmazur/react-katex";
 import { DispatchContext } from "../reducer";
 
 const StatePicker = memo(({ region }) => {
   const dispatch = useContext(DispatchContext);
+  const bp = useWindowWidthBreakpoints();
 
   return (
-    <Form.Group as={Form.Row} controlId="statePicker">
+    <Form.Group
+      as={Form.Row}
+      controlId="statePicker"
+      className="justify-content-lg-center"
+    >
       <Form.Label column xs={12} sm="auto">
-        Pick a U.S. state to fill its current <TeX>R_t</TeX> estimate and 7-day
-        average of new cases:
+        Pick a U.S. state to fill its current <TeX>R_t</TeX> estimate and
+        {bp.md ? " " : " 7-day "}average {bp.md ? "daily" : "of new"} cases:
       </Form.Label>
-      <Col xs={12} sm md="auto">
+      <Col xs={12} md lg="auto">
         <Form.Control
           as="select"
-          value={region}
           custom
+          value={region}
           onChange={(e) => {
             dispatch({ type: "setRegion", payload: e.target.value });
           }}
