@@ -1,11 +1,8 @@
-import React, { memo } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
 import TeX from "@matejmazur/react-katex";
-import useCovidData from "../hooks/useCovidData";
 
-const Introduction = memo(({ initialDailyInfections, chartFirst }) => {
-  const { usaNewCases7DayAvg } = useCovidData();
-
+export default function Introduction({ chartFirst }) {
   return (
     <Container fluid="md" className="cap-width-lg mb-4">
       <p>
@@ -22,22 +19,11 @@ const Introduction = memo(({ initialDailyInfections, chartFirst }) => {
       <p>
         But what if each person with COVID only infects an average of{" "}
         <TeX>1.1</TeX> people? <TeX>1.1</TeX> can&rsquo;t be <em>that</em> bad,
-        can it?{" "}
-        {chartFirst ? (
-          <>Well, you saw for yourself in the chart above.</>
-        ) : (
-          <>
-            Well, see for yourself (with a starting point of{" "}
-            {initialDailyInfections.toLocaleString()} daily infections
-            {initialDailyInfections === usaNewCases7DayAvg
-              ? ", the current 7-day average of new cases in the United States"
-              : ""}
-            ):
-          </>
-        )}
+        can it? Well,{" "}
+        {chartFirst
+          ? "you saw for yourself in the chart above."
+          : "Well, see for yourself:"}
       </p>
     </Container>
   );
-});
-
-export default Introduction;
+}

@@ -23,6 +23,10 @@ const InitialDailyInfectionsInput = memo(({ initialDailyInfections }) => {
         Initial daily infections:
       </Form.Label>
       <Col xs sm="auto">
+        {/**
+         * @todo Add a tooltip to this input that says "Current U.S. 7-day
+         * average: {usaNewCases7DayAvg}"
+         */}
         <Form.Control
           value={initialDailyInfections.toLocaleString()}
           style={{ ...(breakpoint.up.sm && { width: "7.75em" }) }}
@@ -47,6 +51,9 @@ const InitialDailyInfectionsInput = memo(({ initialDailyInfections }) => {
         >
           <IconButton
             variant="primary"
+            /**
+             * @todo Remove this tooltip, fix title/label
+             */
             tooltip="Reset to current United States 7-day average"
             tooltipId="reset"
             onClick={() => dispatch({ type: "resetInitialDailyInfections" })}
