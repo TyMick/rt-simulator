@@ -23,6 +23,7 @@ export default function InteractiveChart() {
   function getRtColor(r) {
     return chroma
       .scale([successColor, warningColor, dangerColor])
+      .mode("lrgb")
       .domain([0.9, 1.1])(r)
       .hex();
   }
