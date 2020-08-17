@@ -52,6 +52,7 @@ export default function InteractiveChart() {
         <RtSlider rt={state.rt} animating={state.animating} />
         <InitialDailyInfectionsInput
           initialDailyInfections={state.initialDailyInfections}
+          region={state.region}
         />
         {covidDataLoaded && <StatePicker region={state.region} />}
       </Container>
