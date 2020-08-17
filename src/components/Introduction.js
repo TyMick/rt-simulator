@@ -22,7 +22,7 @@ export default function Introduction({ chartFirst }) {
         can it? Well,{" "}
         {chartFirst
           ? "you saw for yourself in the chart above."
-          : "Well, see for yourself:"}
+          : "see for yourself:"}
       </p>
     </Container>
   );
