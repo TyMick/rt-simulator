@@ -19,3 +19,7 @@
   div.range-slider__tooltip:not(.range-slider__tooltip--off):not(.range-slider__tooltip--disabled) {
   opacity: 1;
 }
+
+.tooltip-inner {
+  min-width: max-content;
+}

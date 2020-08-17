@@ -1,6 +1,6 @@
 import React, { memo, useContext } from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
-import { Form, Col } from "react-bootstrap";
+import { Form, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
 import { DispatchContext } from "../reducer";
 import useCovidData from "../hooks/useCovidData";
@@ -23,10 +23,31 @@ const InitialDailyInfectionsInput = memo(({ initialDailyInfections }) => {
         Initial daily infections:
       </Form.Label>
       <Col xs sm="auto">
-        {/**
-         * @todo Add a tooltip to this input that says "Current U.S. 7-day
-         * average: {usaNewCases7DayAvg}"
-         */}
+        {/* Only add tooltip if COVID data has loaded */}
+        {covidDataLoaded ? (
+          <OverlayTrigger
+            overlay={
+              <Tooltip id="current-usa-average">
+                Current U.S. 7-day average:{" "}
+                {usaNewCases7DayAvg.toLocaleString()}
+              </Tooltip>
+            }
+          >
+            <Form.Control
+              value={initialDailyInfections.toLocaleString()}
+              style={{ ...(breakpoint.up.sm && { width: "7.75em" }) }}
+              onChange={(e) => {
+                // Try to extract a valid integer from the input value
+                const fixedValue =
+                  e.target.value.replace(/\D/g, "").replace(/^0+/, "") || 0;
+                dispatch({
+                  type: "setInitialDailyInfections",
+                  payload: parseInt(fixedValue),
+                });
+              }}
+            />
+          </OverlayTrigger>
+        ) : (
         <Form.Control
           value={initialDailyInfections.toLocaleString()}
           style={{ ...(breakpoint.up.sm && { width: "7.75em" }) }}
@@ -40,6 +61,7 @@ const InitialDailyInfectionsInput = memo(({ initialDailyInfections }) => {
             });
           }}
         />
+        )}
       </Col>
       {covidDataLoaded && (
         <Col
@@ -51,11 +73,7 @@ const InitialDailyInfectionsInput = memo(({ initialDailyInfections }) => {
         >
           <IconButton
             variant="primary"
-            /**
-             * @todo Remove this tooltip, fix title/label
-             */
-            tooltip="Reset to current United States 7-day average"
-            tooltipId="reset"
+            aria-label="Reset to current United States 7-day average"
             onClick={() => dispatch({ type: "resetInitialDailyInfections" })}
             icon={faUndoAlt}
           />
