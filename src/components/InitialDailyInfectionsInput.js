@@ -1,6 +1,7 @@
 import React, { memo, useContext } from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { Form, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
+import NumberFormatInput from "react-number-format";
 import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
 import { DispatchContext } from "../reducer";
 import useCovidData from "../hooks/useCovidData";
@@ -34,51 +35,55 @@ const InitialDailyInfectionsInput = memo(({ initialDailyInfections }) => {
             }
           >
             <Form.Control
-              value={initialDailyInfections.toLocaleString()}
-              style={{ ...(breakpoint.up.sm && { width: "7.75em" }) }}
-              onChange={(e) => {
-                // Try to extract a valid integer from the input value
-                const fixedValue =
-                  e.target.value.replace(/\D/g, "").replace(/^0+/, "") || 0;
-                dispatch({
-                  type: "setInitialDailyInfections",
-                  payload: parseInt(fixedValue),
-                });
+              as={NumberFormatInput}
+              value={initialDailyInfections}
+              thousandSeparator={true}
+              decimalScale={0}
+              allowNegative={false}
+              onValueChange={({ floatValue }) => {
+                if (floatValue !== initialDailyInfections) {
+                  dispatch({
+                    type: "setInitialDailyInfections",
+                    payload: floatValue,
+                  });
+                }
               }}
+              style={{ ...(breakpoint.up.sm && { width: "7.75em" }) }}
             />
           </OverlayTrigger>
         ) : (
-        <Form.Control
-          value={initialDailyInfections.toLocaleString()}
-          style={{ ...(breakpoint.up.sm && { width: "7.75em" }) }}
-          onChange={(e) => {
-            // Try to extract a valid integer from the input value
-            const fixedValue =
-              e.target.value.replace(/\D/g, "").replace(/^0+/, "") || 0;
-            dispatch({
-              type: "setInitialDailyInfections",
-              payload: parseInt(fixedValue),
-            });
-          }}
-        />
+          <Form.Control
+            as={NumberFormatInput}
+            value={initialDailyInfections}
+            thousandSeparator={true}
+            decimalScale={0}
+            allowNegative={false}
+            onValueChange={({ floatValue }) => {
+              if (floatValue !== initialDailyInfections) {
+                dispatch({
+                  type: "setInitialDailyInfections",
+                  payload: floatValue,
+                });
+              }
+            }}
+            style={{ ...(breakpoint.up.sm && { width: "7.75em" }) }}
+          />
         )}
       </Col>
-      {covidDataLoaded && (
-        <Col
-          xs="auto"
-          className={clsx(
-            initialDailyInfections === usaNewCases7DayAvg &&
-              (breakpoint.xs ? "d-none" : "invisible")
-          )}
-        >
-          <IconButton
-            variant="primary"
-            aria-label="Reset to current United States 7-day average"
-            onClick={() => dispatch({ type: "resetInitialDailyInfections" })}
-            icon={faUndoAlt}
-          />
-        </Col>
-      )}
+      <Col
+        xs="auto"
+        className={clsx(
+          (!covidDataLoaded || initialDailyInfections === usaNewCases7DayAvg) &&
+            (breakpoint.xs ? "d-none" : "invisible")
+        )}
+      >
+        <IconButton
+          variant="primary"
+          aria-label="Reset to current United States 7-day average"
+          onClick={() => dispatch({ type: "resetInitialDailyInfections" })}
+          icon={faUndoAlt}
+        />
+      </Col>
     </Form.Group>
   );
 });
