@@ -37,7 +37,7 @@ export default function Application() {
           return (
             <li key={site.name} className="mb-1">
               <a href={site.url} dangerouslySetInnerHTML={{ __html: name }} />
-              <span className="text-muted"> – {site["geographic region"]}</span>
+              <span className="text-muted"> – {site.region}</span>
             </li>
           );
         })}
