@@ -24,7 +24,9 @@ const StatePicker = memo(({ region }) => {
           custom
           value={region}
           onChange={(e) => {
-            dispatch({ type: "setRegion", payload: e.target.value });
+            if (e.target.value !== region) {
+              dispatch({ type: "setRegion", payload: e.target.value });
+            }
           }}
         >
           <option></option>

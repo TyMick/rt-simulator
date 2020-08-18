@@ -26,7 +26,12 @@ export default function RtSlider({ rt, animating }) {
           max={1.5}
           value={rt}
           tooltipPlacement="top"
-          onChange={(e) => dispatch({ type: "setRt", payload: e.target.value })}
+          onChange={(e) => {
+            const float = parseFloat(e.target.value);
+            if (float !== rt) {
+              dispatch({ type: "setRt", payload: float });
+            }
+          }}
         />
       </Col>
       <Col xs="auto">

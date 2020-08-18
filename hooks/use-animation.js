@@ -7,7 +7,7 @@ export default function useAnimation(
   options = { timeAtEnds: 3000, timeWhileMoving: 50 }
 ) {
   const { timeAtEnds, timeWhileMoving } = options;
-  
+
   const [direction, setDirection] = useState("up");
 
   useEffect(() => {
@@ -38,5 +38,5 @@ export default function useAnimation(
         setDirection("down");
       }
     }
-  }, [animating, rt, dispatch, direction, timeAtEnds, timeWhileMoving]);
+  }, [animating, rt]);
 }

@@ -44,14 +44,12 @@ export function reducer(state, { type, payload }) {
       break;
 
     case "toggleAnimation":
-      if (animating) {
-        animating = false;
-      } else {
-        animating = true;
+      if (!animating) {
         region = "";
         rtLower80 = undefined;
         rtUpper80 = undefined;
       }
+      animating = !animating;
       break;
 
     case "covidDataLoaded":
