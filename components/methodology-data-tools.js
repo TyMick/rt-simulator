@@ -5,7 +5,7 @@ import TeX from "@matejmazur/react-katex";
 
 export default function MethodologyDataTools() {
   return (
-    <Container as="main" className="cap-width-lg mt-5">
+    <Container as="main" className="cap-width-lg my-5">
       <Link href="/">
         <a className="d-block mb-1">&larr; Return to main page</a>
       </Link>
@@ -27,18 +27,32 @@ export default function MethodologyDataTools() {
         <a href="https://en.wikipedia.org/wiki/Log-normal_distribution">
           log-normal probability distribution
         </a>{" "}
-        with a mean of 4.7 days and standard deviation 2.9 days.
+        with a mean of 4.7 days and standard deviation 2.9 days. Then, the
+        number of newly infected people on a given day <TeX>y_t</TeX> is a sum
+        that looks at all previous days, weighing the number of newly infected
+        people <TeX>i</TeX> days ago (<TeX math={`y_{t - i}`} />) by the
+        generation time probability (<TeX>g_i</TeX>) for that number of days and
+        the effective reproduction number (which for the purposes of this
+        simulation is being kept constant at <TeX>R_e</TeX>). More succinctly,
+      </p>
+
+      <TeX as="figure" block math="y_t = \sum_{i = 1}^M y_{t - i} R_e g_i" />
+
+      <p>
+        Simulations run from today&rsquo;s date to four months in the future,
+        and they treat every day prior to the start date as having a number of
+        new infections equal to the &ldquo;Initial daily infections&rdquo;
+        setting below the chart.
       </p>
 
       <p>
-        The current <TeX>R_t</TeX> estimates and average daily cases for each
-        U.S. state are fetched directly{" "}
+        For the &ldquo;Pick a U.S. state&rdquo; dropdown (which only appears if
+        the app is able to download the required data), current <TeX>R_t</TeX>{" "}
+        estimates and average daily cases are fetched directly{" "}
         <a href="https://rt.live/#footer">
           from R<sub>t</sub> Live
-        </a>{" "}
-        (unless the app is unable to download them, in which case the
-        state-picker dropdown won&rsquo;t appear), and R<sub>t</sub> Live
-        sources their case count data from{" "}
+        </a>
+        , and they source their case count data from{" "}
         <a href="https://covidtracking.com/">The COVID Tracking Project</a>.
         These real-time <TeX>R_t</TeX> estimates have an inherent degree of
         uncertainty, so each estimate includes an 80%{" "}
@@ -53,7 +67,9 @@ export default function MethodologyDataTools() {
         smaller with the benefit of more data.
       </p>
 
-      <p className="mb-2">These are the primary tools I used in this project:</p>
+      <p className="mb-2">
+        These are the primary tools I used in this project:
+      </p>
 
       <ul>
         <li className="mb-1">
@@ -85,6 +101,11 @@ export default function MethodologyDataTools() {
           via <a href="https://react-bootstrap.github.io/">React Bootstrap</a>
         </li>
       </ul>
+
+      <p>
+        If you have any other questions about this project, I&rsquo;d love to{" "}
+        <a href="https://tymick.me/connect">get in touch</a>!
+      </p>
     </Container>
   );
 }
