@@ -1,5 +1,6 @@
 import React from "react";
 import Router from "next/router";
+import Navbar from "../components/navbar";
 import "../styles/index.scss";
 import "katex/dist/katex.min.css";
 import "react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css";
@@ -14,5 +15,10 @@ Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
 
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Navbar />
+      <Component {...pageProps} />
+    </>
+  );
 }
