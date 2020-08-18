@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { Navbar as RBNavbar, Container, Nav } from "react-bootstrap";
 import TeX from "@matejmazur/react-katex";
@@ -16,9 +17,11 @@ export default function Navbar() {
       style={{ marginBottom: breakpoint.xs ? "1.5rem" : "2rem" }}
     >
       <Container fluid="xl">
-        <RBNavbar.Brand>
-          <TeX>R_t</TeX> Simulator
-        </RBNavbar.Brand>
+        <Link href="/" passHref>
+          <RBNavbar.Brand>
+            <TeX>R_t</TeX> Simulator
+          </RBNavbar.Brand>
+        </Link>
         <Nav className="mr-n2">
           <Nav.Link
             href="https://github.com/tywmick/rt-simulator"
