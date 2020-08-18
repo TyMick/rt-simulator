@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "next build && next export",
+    "start": "npm run build && serve out"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
