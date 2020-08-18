@@ -9,8 +9,8 @@ If you'd like to build it yourself to see how it looks right now, just
 ```sh
 git clone https://github.com/tywmick/rt-simulator.git
 cd rt-simulator
-yarn
-yarn start
+npm install
+npm run dev
 ```
 
-This project was bootstrapped with [Create React App](https://create-react-app.dev/), builds projections with a little help from [jStat](http://www.jstat.org/), visualizes those projections with [Vega-Lite](https://vega.github.io/vega-lite/), uses data from [R<sub>t</sub> Live](https://rt.live/), fetches data with [SWR](https://swr.vercel.app/), and wrangles data with [Data-Forge](http://www.data-forge-js.com/).
+This project is built with [Next.js](https://nextjs.org/), builds projections with a little help from [jStat](http://www.jstat.org/), visualizes those projections with [Vega-Lite](https://vega.github.io/vega-lite/), uses data from [R<sub>t</sub> Live](https://rt.live/), fetches data with [SWR](https://swr.vercel.app/), and wrangles data with [Data-Forge](http://www.data-forge-js.com/).
