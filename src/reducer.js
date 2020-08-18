@@ -6,7 +6,7 @@ export const initialState = {
   rtLower80: undefined,
   rtUpper80: undefined,
   animating: true,
-  initialDailyInfections: 10000,
+  initialDailyInfections: 50000,
   userChangedIDI: false,
   region: "",
   usaNewCases7DayAvg: undefined,

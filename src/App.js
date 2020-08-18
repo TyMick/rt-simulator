@@ -7,6 +7,7 @@ import Headings from "./components/Headings";
 import Introduction from "./components/Introduction";
 import InteractiveChart from "./components/InteractiveChart";
 import Application from "./components/Application";
+import Methodology from "./components/Methodology";
 
 export default function App() {
   const breakpoint = useWindowWidthBreakpoints();
@@ -28,9 +29,10 @@ export default function App() {
 
         <InteractiveChart />
 
-        <Container fluid="md" className="cap-width-lg mb-4">
+        <Container fluid="md" className="cap-width-lg mb-5">
           {chartFirst && <Introduction chartFirst={chartFirst} />}
           <Application />
+          <Methodology />
         </Container>
       </main>
     </>
