@@ -67,7 +67,7 @@ export default function MethodologyDataTools() {
         smaller with the benefit of more data.
       </p>
 
-      <p className="mb-2">
+      <p className="mb-1">
         These are the primary tools I used in this project:
       </p>
 
@@ -96,14 +96,14 @@ export default function MethodologyDataTools() {
         <li className="mb-1">
           Web framework: <a href="https://nextjs.org/">Next.js</a>
         </li>
-        <li className="mb-1">
+        <li>
           Web design library: <a href="https://getbootstrap.com/">Bootstrap</a>{" "}
           via <a href="https://react-bootstrap.github.io/">React Bootstrap</a>
         </li>
       </ul>
 
       <p>
-        If you have any other questions about this project, I&rsquo;d love to{" "}
+        If you have any other questions, I&rsquo;d love to{" "}
         <a href="https://tymick.me/connect">get in touch</a>!
       </p>
     </Container>
