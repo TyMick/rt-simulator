@@ -15,7 +15,8 @@ export default function Chart({
 
   const yDomainMax = useMemo(
     () =>
-      last(generateSimData(1.1, initialDailyInfections)).medianNewInfections,
+      last(generateSimData(1.1, initialDailyInfections).simData)
+        .medianNewInfections,
     [initialDailyInfections]
   );
 
@@ -33,7 +34,7 @@ export default function Chart({
     ciBreakpoints.push(rtUpper80);
   }
 
-  const infectionSpreadSim = generateSimData(
+  const { simData: infectionSpreadSim } = generateSimData(
     rt,
     initialDailyInfections,
     ciBreakpoints

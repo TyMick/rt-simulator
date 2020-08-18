@@ -1,10 +1,9 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 import TeX from "@matejmazur/react-katex";
 
 export default function Introduction({ chartFirst }) {
   return (
-    <Container fluid="md" className="cap-width-lg mb-4">
+    <>
       <p>
         By many respects, the most important COVID-19 number to watch is its{" "}
         <a href="https://en.wikipedia.org/wiki/Basic_reproduction_number#Effective_reproduction_number">
@@ -24,6 +23,6 @@ export default function Introduction({ chartFirst }) {
           ? "you saw for yourself in the chart above."
           : "see for yourself:"}
       </p>
-    </Container>
+    </>
   );
 }

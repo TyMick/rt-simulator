@@ -1,10 +1,12 @@
 import React from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import useWindowOrientation from "use-window-orientation";
+import { Container } from "react-bootstrap";
 import Navbar from "./components/Navbar";
 import Headings from "./components/Headings";
 import Introduction from "./components/Introduction";
 import InteractiveChart from "./components/InteractiveChart";
+import Application from "./components/Application";
 
 export default function App() {
   const breakpoint = useWindowWidthBreakpoints();
@@ -17,9 +19,19 @@ export default function App() {
       <Navbar />
       <main>
         <Headings />
-        {!chartFirst && <Introduction chartFirst={chartFirst} />}
+
+        {!chartFirst && (
+          <Container fluid="md" className="cap-width-lg mb-4">
+            <Introduction chartFirst={chartFirst} />
+          </Container>
+        )}
+
         <InteractiveChart />
-        {chartFirst && <Introduction chartFirst={chartFirst} />}
+
+        <Container fluid="md" className="cap-width-lg mb-4">
+          {chartFirst && <Introduction chartFirst={chartFirst} />}
+          <Application />
+        </Container>
       </main>
     </>
   );

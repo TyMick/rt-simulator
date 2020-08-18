@@ -19,7 +19,8 @@ export function generateSimData(
   const { lengthInMonths = 4, startDate = startOfToday() } = options;
   const lengthInDays = 365.25 * (lengthInMonths / 12);
 
-  let data = [];
+  let simData = [];
+  let cumulativeInfections = 0;
   for (let t = 0; t < lengthInDays; t++) {
     let datum = { date: addDays(startDate, t) };
 
@@ -30,7 +31,7 @@ export function generateSimData(
       let remainingProbability = 1;
       for (let i = 1; i <= t; i++) {
         let probability = generationTime.pdf(i);
-        newInfections += data[t - i][fieldname] * rt * probability;
+        newInfections += simData[t - i][fieldname] * rt * probability;
         remainingProbability -= probability;
       }
 
@@ -38,15 +39,16 @@ export function generateSimData(
       newInfections += initialDailyInfections * rt * remainingProbability;
 
       datum[fieldname] = newInfections;
+      return newInfections;
     }
 
-    fillNewInfections(rtMedian, "medianNewInfections");
+    cumulativeInfections += fillNewInfections(rtMedian, "medianNewInfections");
     for (let i = 0; i < ciBreakpoints.length; i++) {
       fillNewInfections(ciBreakpoints[i], `ciBreakpoint${i}`);
     }
 
-    data.push(datum);
+    simData.push(datum);
   }
 
-  return data;
+  return { simData, cumulativeInfections };
 }
