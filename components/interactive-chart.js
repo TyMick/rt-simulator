@@ -2,13 +2,13 @@ import React, { useReducer } from "react";
 import { Container, Form } from "react-bootstrap";
 import chroma from "chroma-js";
 import { initialState, reducer, DispatchContext } from "../reducer";
-import useAnimation from "../hooks/useAnimation";
-import useCovidData from "../hooks/useCovidData";
-import ChartCaption from "./ChartCaption";
-import Chart from "./Chart";
-import RtSlider from "./RtSlider";
-import InitialDailyInfectionsInput from "./InitialDailyInfectionsInput";
-import StatePicker from "./StatePicker";
+import useAnimation from "../hooks/use-animation";
+import useCovidData from "../hooks/use-covid-data";
+import ChartCaption from "./chart-caption";
+import Chart from "./chart";
+import RtSlider from "./rt-slider";
+import InitialDailyInfectionsInput from "./initial-daily-infections-input";
+import StatePicker from "./state-picker";
 
 export default function InteractiveChart() {
   const [state, dispatch] = useReducer(reducer, initialState);

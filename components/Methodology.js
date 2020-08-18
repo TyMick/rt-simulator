@@ -1,6 +1,6 @@
 import React from "react";
 import TeX from "@matejmazur/react-katex";
-import useCovidData from "../hooks/useCovidData";
+import useCovidData from "../hooks/use-covid-data";
 
 export default function Methodology() {
   const { covidDataLoaded } = useCovidData();

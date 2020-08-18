@@ -4,8 +4,8 @@ import { Form, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 import NumberFormatInput from "react-number-format";
 import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
 import { DispatchContext } from "../reducer";
-import useCovidData from "../hooks/useCovidData";
-import IconButton from "./IconButton";
+import useCovidData from "../hooks/use-covid-data";
+import IconButton from "./icon-button";
 import clsx from "clsx";
 
 const InitialDailyInfectionsInput = memo(

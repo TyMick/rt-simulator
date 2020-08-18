@@ -2,12 +2,12 @@ import React from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import useWindowOrientation from "use-window-orientation";
 import { Container } from "react-bootstrap";
-import Navbar from "../components/Navbar";
-import Headings from "../components/Headings";
-import Introduction from "../components/Introduction";
-import InteractiveChart from "../components/InteractiveChart";
-import Application from "../components/Application";
-import Methodology from "../components/Methodology";
+import Navbar from "../components/navbar";
+import Headings from "../components/headings";
+import Introduction from "../components/introduction";
+import InteractiveChart from "../components/interactive-chart";
+import Application from "../components/application";
+import Methodology from "../components/methodology";
 
 export default function App() {
   const breakpoint = useWindowWidthBreakpoints();

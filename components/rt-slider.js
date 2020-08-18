@@ -4,7 +4,7 @@ import RangeSlider from "react-bootstrap-range-slider";
 import TeX from "@matejmazur/react-katex";
 import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { DispatchContext } from "../reducer";
-import IconButton from "./IconButton";
+import IconButton from "./icon-button";
 
 export default function RtSlider({ rt, animating }) {
   const dispatch = useContext(DispatchContext);
