@@ -1,0 +1,22 @@
+// Enables footer to stick to bottom
+#__next {
+  position: absolute;
+  min-height: 100%;
+  width: 100%;
+  @extend .d-flex;
+  @extend .flex-column;
+}
+
+$light-primary: lighten($primary, 20%);
+footer {
+  @extend .mt-auto;
+  @extend .pt-5;
+  @extend .bg-dark;
+  @extend .text-white;
+  a {
+    color: $light-primary;
+    @include hover-focus() {
+      color: lighten($light-primary, 10%);
+    }
+  }
+}

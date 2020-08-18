@@ -6,6 +6,7 @@ import Headings from "../components/headings";
 import Introduction from "../components/introduction";
 import InteractiveChart from "../components/interactive-chart";
 import Application from "../components/application";
+import Footer from "../components/footer";
 
 export default function App() {
   const breakpoint = useWindowWidthBreakpoints();
@@ -31,6 +32,8 @@ export default function App() {
           <Application />
         </Container>
       </main>
+
+      <Footer methodologyLink />
     </>
   );
 }
