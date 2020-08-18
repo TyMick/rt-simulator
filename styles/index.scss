@@ -1,8 +1,10 @@
+// Bootstrap
 $enable-responsive-font-sizes: true;
 $font-size-base: 1rem;
 $h1-font-size: $font-size-base * 2.875; // Works better on Alegreya fonts
 @import "~bootstrap/scss/bootstrap";
 
+// Misc
 h1,
 .h1 {
   font-family: "Alegreya", serif;
@@ -21,5 +23,27 @@ li {
   }
 }
 
+// Other custom
 @import "./headings";
 @import "./interactive-chart";
+
+// NProgress
+@import "~nprogress/nprogress.css";
+#nprogress {
+  .bar {
+    background: $primary;
+    height: 3px;
+  }
+  .peg {
+    box-shadow: 0 0 10px $primary, 0 0 5px $primary;
+  }
+  .spinner-icon {
+    border-top-color: $primary;
+    border-left-color: $primary;
+  }
+}
+
+// Other vendor styles
+@import "~katex/dist/katex.min.css";
+@import "~react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css";
+@import "~@fortawesome/fontawesome-svg-core/styles.css";
