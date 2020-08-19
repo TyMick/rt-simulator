@@ -1,6 +1,7 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useMemo, useCallback } from "react";
 import { Container, Form } from "react-bootstrap";
 import chroma from "chroma-js";
+import { round } from "lodash";
 import { initialState, reducer, DispatchContext } from "../reducer";
 import useAnimation from "../hooks/use-animation";
 import useCovidData from "../hooks/use-covid-data";
@@ -18,15 +19,17 @@ export default function InteractiveChart() {
   useCovidData(dispatch);
 
   const successColor = "#28a745";
-  const warningColor = chroma("#ffc107").darken(0.5).hex();
+  const warningColor = useMemo(() => chroma("#ffc107").darken(0.5).hex(), []);
   const dangerColor = "#dc3545";
-  function getRtColor(r) {
-    return chroma
-      .scale([successColor, warningColor, dangerColor])
-      .mode("lrgb")
-      .domain([0.9, 1.1])(r)
-      .hex();
-  }
+  const rtColorScale = useMemo(
+    () =>
+      chroma
+        .scale([successColor, warningColor, dangerColor])
+        .mode("lrgb")
+        .domain([0.9, 1.1]),
+    []
+  );
+  const getRtColor = (r) => rtColorScale(r).hex();
 
   const { covidDataLoaded } = useCovidData();
 
