@@ -37,24 +37,25 @@ export default function Chart({
   const { simData: infectionSpreadSim } = generateSimData(
     rt,
     initialDailyInfections,
+    getRtColor(rt),
     ciBreakpoints
   );
 
   let ciLayers = [];
   for (let i = 1; i < ciBreakpoints.length; i++) {
     ciLayers.push({
-      mark: { type: "area", clip: true },
+      mark: {
+        type: "area",
+        clip: true,
+        color: getRtColor((ciBreakpoints[i - 1] + ciBreakpoints[i]) / 2),
+      },
       encoding: {
         y: { field: `ciBreakpoint${i - 1}`, type: "quantitative" },
         y2: { field: `ciBreakpoint${i}`, type: "quantitative" },
-        color: {
-          value: getRtColor((ciBreakpoints[i - 1] + ciBreakpoints[i]) / 2),
-        },
         opacity: { value: 0.1 },
       },
     });
   }
-
   const vegaSpec = {
     width: "container",
     height: "container",
@@ -88,7 +89,12 @@ export default function Chart({
             },
             scale: { domainMax: yDomainMax },
           },
-          color: { value: getRtColor(rt) },
+          color: {
+            type: "nominal",
+            field: "medianColor",
+            scale: { range: { field: "medianColor" } },
+            legend: false,
+          },
         },
       },
       ...ciLayers,

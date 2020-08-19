@@ -3,6 +3,7 @@ import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import TeX from "@matejmazur/react-katex";
 import clsx from "clsx";
+import { round } from "lodash";
 
 export default function ChartCaption({ rt, rtLower80, rtUpper80, getRtColor }) {
   const bp = useWindowWidthBreakpoints();
@@ -13,13 +14,13 @@ export default function ChartCaption({ rt, rtLower80, rtUpper80, getRtColor }) {
 
       <TeX
         math={`R_t ${rtLower80 && rtUpper80 ? "\\approx" : "="} ${rt}${
-          rt % 1 === 0 ? ".0" : ""
+          round(rt % 1, 2) === 0 ? ".0" : ""
         }`}
         style={{ color: getRtColor(rt) }}
       />
       {/* Adding an invisible 0 for spacing on multiples of 0.1 when not using
       //* confidence intervals */}
-      {rt % 0.1 === 0 && rtLower80 === undefined && (
+      {round((10 * rt) % 1, 1) === 0 && rtLower80 === undefined && (
         <TeX math="0" className="invisible" />
       )}
 

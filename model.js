@@ -13,6 +13,7 @@ const generationTime = jStat.lognormal(muSI, sigmaSI);
 export function generateSimData(
   rtMedian,
   initialDailyInfections,
+  medianColor,
   ciBreakpoints = [],
   options = {}
 ) {
@@ -23,6 +24,9 @@ export function generateSimData(
   let cumulativeInfections = 0;
   for (let t = 0; t < lengthInDays; t++) {
     let datum = { date: addDays(startDate, t) };
+    if (medianColor) {
+      datum.medianColor = medianColor;
+    }
 
     function fillNewInfections(rt, fieldname) {
       let newInfections = 0;

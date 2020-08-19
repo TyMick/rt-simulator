@@ -1,4 +1,4 @@
-import React, { useReducer, useMemo } from "react";
+import React, { useReducer, useCallback } from "react";
 import { Container, Form } from "react-bootstrap";
 import chroma from "chroma-js";
 import { initialState, reducer, DispatchContext } from "../reducer";
@@ -17,18 +17,15 @@ export default function InteractiveChart() {
 
   useCovidData(dispatch);
 
-  const successColor = "#28a745";
-  const warningColor = useMemo(() => chroma("#ffc107").darken(0.5).hex(), []);
-  const dangerColor = "#dc3545";
-  const rtColorScale = useMemo(
-    () =>
+  const getRtColor = useCallback(
+    (r) =>
       chroma
-        .scale([successColor, warningColor, dangerColor])
+        .scale(["#28a745", "#e3a900", "#dc3545"])
         .mode("lrgb")
-        .domain([0.9, 1.1]),
+        .domain([0.9, 1.1])(r)
+        .hex(),
     []
   );
-  const getRtColor = (r) => rtColorScale(r).hex();
 
   const { covidDataLoaded } = useCovidData();
 
