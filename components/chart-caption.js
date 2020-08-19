@@ -13,16 +13,17 @@ export default function ChartCaption({ rt, rtLower80, rtUpper80, getRtColor }) {
       {bp.xs && <div className="h5 mb-0">Daily new infections when</div>}
 
       <TeX
-        math={`R_t ${rtLower80 && rtUpper80 ? "\\approx" : "="} ${rt}${
-          round(rt % 1, 2) === 0 ? ".0" : ""
+        math={`\\textcolor{${getRtColor(rt)}}{R_t ${
+          rtLower80 && rtUpper80 ? "\\approx" : "="
+        } ${rt}${round(rt % 1, 2) === 0 ? ".0" : ""}}${
+          // Adding a white 0 for spacing on multiples of 0.1 when not
+          // using confidence intervals
+          round((10 * rt) % 1, 1) === 0 && rtLower80 === undefined
+            ? "\\htmlClass{invisible}{0}"
+            : ""
         }`}
-        style={{ color: getRtColor(rt) }}
+        settings={{ trust: true }}
       />
-      {/* Adding an invisible 0 for spacing on multiples of 0.1 when not using
-      //* confidence intervals */}
-      {round((10 * rt) % 1, 1) === 0 && rtLower80 === undefined && (
-        <TeX math="0" className="invisible" />
-      )}
 
       {rtLower80 && rtUpper80 && (
         <>
