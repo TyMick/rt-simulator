@@ -1,7 +1,6 @@
-import React, { useReducer, useMemo, useCallback } from "react";
+import React, { useReducer, useMemo } from "react";
 import { Container, Form } from "react-bootstrap";
 import chroma from "chroma-js";
-import { round } from "lodash";
 import { initialState, reducer, DispatchContext } from "../reducer";
 import useAnimation from "../hooks/use-animation";
 import useCovidData from "../hooks/use-covid-data";
