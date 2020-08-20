@@ -1,3 +1,6 @@
+/**
+ * I'm arranging these in alphabetical order by name.
+ */
 export default `
 
 - name: EpiForecasts
@@ -11,5 +14,9 @@ export default `
 - name: R_tlive.de
   url: https://rtlive.de/
   region: Germany
+
+- name: R_t Tracker India  
+  url: https://www.nidhigupta.live/rtcovid
+  region: India
 
 `;
