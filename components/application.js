@@ -1,6 +1,7 @@
 import React from "react";
 import TeX from "@matejmazur/react-katex";
 import { safeLoad } from "js-yaml";
+import TweetThis from "./tweet-this";
 import rtTrackersYaml from "../constants/rt-trackers.yaml.js";
 
 export default function Application() {
@@ -9,13 +10,22 @@ export default function Application() {
   return (
     <>
       <p>
-        Exponential growth is a force to be reckoned with. If{" "}
-        <TeX className="text-danger">R_t = 1.1</TeX>,{" "}
-        <strong>15 times more people will be infected with COVID-19</strong> in
-        the next four months than if{" "}
-        <TeX className="text-success">R_t = 0.9</TeX>. So please, please do all
-        you can to keep COVID&rsquo;s reproduction number below 1 until a
-        widespread{" "}
+        Exponential growth is a force to be reckoned with.{" "}
+        <TweetThis
+          tweetText={`If #COVID19’s reproduction number is "just" 1.1, daily #coronavirus transmissions will increase 13-fold in the next four months.`}
+          tweetUrl="https://rtsimulator.com"
+          tweetRelated="CorrieMick"
+        >
+          If COVID-19&rsquo;s reproduction number is &ldquo;just&rdquo;{" "}
+          <TeX>1.1</TeX>,{" "}
+          <strong>
+            daily coronavirus transmissions will increase 13-fold in the next
+            four months
+          </strong>
+          .
+        </TweetThis>{" "}
+        So please, please do all you can to keep COVID&rsquo;s <TeX>R_t</TeX>{" "}
+        below <TeX>1</TeX> until a widespread{" "}
         <a
           href="https://www.nytimes.com/interactive/2020/science/coronavirus-vaccine-tracker.html"
           title="Coronavirus Vaccine Tracker - The New York Times"

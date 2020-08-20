@@ -1,0 +1,21 @@
+$twitter-color: #1da1f2;
+.tweet-this {
+  @include transition($btn-transition);
+}
+.tweet-this-active {
+  color: darken($twitter-color, 7.5%);
+}
+.twitter-badge-btn {
+  @extend .btn;
+  @include button-variant($twitter-color, $twitter-color);
+  @include button-size(
+    $badge-padding-y,
+    $badge-padding-x,
+    $badge-font-size,
+    1,
+    $badge-border-radius
+  );
+  font-weight: $badge-font-weight;
+  position: relative;
+  top: -1px;
+}
