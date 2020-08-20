@@ -11,7 +11,10 @@ export default function TweetThis({
   tweetVia,
   tweetHashtags,
   tweetRelated,
-  sameWindow = false,
+  sameWindow,
+  sameTab,
+  newWindow,
+  newTab,
   tweetButtonProps,
   as: asComponent,
   className,
@@ -53,6 +56,13 @@ export default function TweetThis({
   }
   intentHref = intentHref.slice(0, intentHref.length - 1);
 
+  // Make it easy to turn off target="_blank"
+  const targetBlank =
+    sameWindow !== true &&
+    sameTab !== true &&
+    newWindow !== false &&
+    newTab !== false;
+
   return (
     <>
       <Component
@@ -68,7 +78,7 @@ export default function TweetThis({
       <a
         className="twitter-badge-btn"
         href={intentHref}
-        rel={!sameWindow && "noopener noreferrer"}
+        {...(targetBlank && { target: "_blank", rel: "noopener noreferrer" })}
         onMouseEnter={activateColor}
         onMouseLeave={removeColor}
         onFocus={activateColor}
