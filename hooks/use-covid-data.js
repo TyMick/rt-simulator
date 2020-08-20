@@ -44,7 +44,7 @@ async function fetchRtData(csvUrl) {
         reader.readAsText(csvBlob);
       });
 
-      return formatRtData(csvText);
+      return await formatRtData(csvText);
     } else {
       let error = new Error(csvResponse.statusText);
       error.response = csvResponse;
@@ -55,73 +55,75 @@ async function fetchRtData(csvUrl) {
   }
 }
 
-function formatRtData(csvString) {
-  const fullData = fromCSV(csvString)
-    .parseDates("date")
-    .parseInts([
-      "index",
-      "positive",
-      "tests",
-      "new_tests",
-      "new_cases",
-      "new_deaths",
-    ])
-    .parseFloats([
-      "mean",
-      "median",
-      "lower_80",
-      "upper_80",
-      "infections",
-      "test_adjusted_positive",
-      "test_adjusted_positive_raw",
-    ])
-    .bake();
-  const subset = fullData
-    .subset(["date", "region", "median", "lower_80", "upper_80", "new_cases"])
-    .bake();
+async function formatRtData(csvString) {
+  return new Promise((resolve, reject) => {
+    const fullData = fromCSV(csvString)
+      .parseDates("date")
+      .parseInts([
+        "index",
+        "positive",
+        "tests",
+        "new_tests",
+        "new_cases",
+        "new_deaths",
+      ])
+      .parseFloats([
+        "mean",
+        "median",
+        "lower_80",
+        "upper_80",
+        "infections",
+        "test_adjusted_positive",
+        "test_adjusted_positive_raw",
+      ])
+      .bake();
+    const subset = fullData
+      .subset(["date", "region", "median", "lower_80", "upper_80", "new_cases"])
+      .bake();
 
-  const latestDate = new Date(fullData.getSeries("date").max());
-  const lastWeek = subset
-    .where((row) => isAfter(new Date(row.date), subDays(latestDate, 7)))
-    .bake();
-  const lastDay = subset
-    .where((row) => isEqual(new Date(row.date), latestDate))
-    .bake();
+    const latestDate = new Date(fullData.getSeries("date").max());
+    const lastWeek = subset
+      .where((row) => isAfter(new Date(row.date), subDays(latestDate, 7)))
+      .bake();
+    const lastDay = subset
+      .where((row) => isEqual(new Date(row.date), latestDate))
+      .bake();
 
-  let data = { usaNewCases7DayAvg: getNewCases7DayAvg(), stateData: {} };
+    let data = { usaNewCases7DayAvg: getNewCases7DayAvg(), stateData: {} };
 
-  function getNewCases7DayAvg(region) {
-    let filtered;
-    if (region) {
-      filtered = lastWeek.where((row) => row.region === region).bake();
-    } else {
-      filtered = lastWeek.bake();
+    function getNewCases7DayAvg(region) {
+      let filtered;
+      if (region) {
+        filtered = lastWeek.where((row) => row.region === region).bake();
+      } else {
+        filtered = lastWeek.bake();
+      }
+      const avg = filtered.getSeries("new_cases").sum() / 7;
+      return round(avg);
     }
-    const avg = filtered.getSeries("new_cases").sum() / 7;
-    return round(avg);
-  }
-  function getRtEstimate(region) {
-    const getField = (field) => {
-      const value = lastDay
-        .where((row) => row.region === region)
-        .getSeries(field)
-        .average();
-      return round(value, 2);
-    };
-    return {
-      median: getField("median"),
-      lower_80: getField("lower_80"),
-      upper_80: getField("upper_80"),
-    };
-  }
+    function getRtEstimate(region) {
+      const getField = (field) => {
+        const value = lastDay
+          .where((row) => row.region === region)
+          .getSeries(field)
+          .average();
+        return round(value, 2);
+      };
+      return {
+        median: getField("median"),
+        lower_80: getField("lower_80"),
+        upper_80: getField("upper_80"),
+      };
+    }
 
-  const regions = lastWeek.getSeries("region").distinct().toArray();
-  for (const region of regions) {
-    data.stateData[region] = {
-      newCases7DayAvg: getNewCases7DayAvg(region),
-      rtEstimate: getRtEstimate(region),
-    };
-  }
+    const regions = lastWeek.getSeries("region").distinct().toArray();
+    for (const region of regions) {
+      data.stateData[region] = {
+        newCases7DayAvg: getNewCases7DayAvg(region),
+        rtEstimate: getRtEstimate(region),
+      };
+    }
 
-  return data;
+    resolve(data);
+  });
 }

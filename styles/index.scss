@@ -24,27 +24,24 @@ li {
 }
 
 // Other custom
-@import "./headings";
-@import "./interactive-chart";
-@import "./footer";
+@import "headings";
+@import "interactive-chart";
+@import "footer";
 
-// NProgress
-@import "~nprogress/nprogress.css";
-#nprogress {
-  .bar {
-    background: $primary;
-    height: 3px;
-  }
-  .peg {
-    box-shadow: 0 0 10px $primary, 0 0 5px $primary;
-  }
-  .spinner-icon {
-    border-top-color: $primary;
-    border-left-color: $primary;
-  }
+// SpinKit
+@import "~spinkit/spinkit.min";
+.sk-chase-dot:before {
+  background-color: $dark;
+}
+#__next {
+  position: absolute;
+  min-height: 100%;
+  width: 100%;
+  @extend .d-flex;
+  @extend .flex-column;
 }
 
 // Other vendor styles
-@import "~katex/dist/katex.min.css";
-@import "~react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css";
-@import "~@fortawesome/fontawesome-svg-core/styles.css";
+@import "~katex/dist/katex.min";
+@import "~react-bootstrap-range-slider/dist/react-bootstrap-range-slider";
+@import "~@fortawesome/fontawesome-svg-core/styles";

@@ -1,16 +1,23 @@
 import React from "react";
+import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import Link from "next/link";
 import { Container } from "react-bootstrap";
 import TeX from "@matejmazur/react-katex";
 
 export default function MethodologyDataTools() {
+  const breakpoint = useWindowWidthBreakpoints();
+
   return (
-    <Container as="main" className="cap-width-lg my-5">
+    <Container
+      as="main"
+      className="cap-width-lg mb-5"
+      style={{ marginTop: breakpoint.down.sm ? "2rem" : "3rem" }}
+    >
       <Link href="/">
         <a className="d-block mb-1">&larr; Return to main page</a>
       </Link>
 
-      <h1 className="mb-3">Methodology, Data, &amp; Tools</h1>
+      <h1 className="mb-2 mb-sm-3">Methodology, Data, &amp; Tools</h1>
 
       <p>
         I adapted{" "}
