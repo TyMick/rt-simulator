@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import clsx from "clsx";
@@ -26,12 +26,21 @@ export default function TweetThis({
   const activateColor = () => setColorActive(true);
   const removeColor = () => setColorActive(false);
 
+  const childrenRef = useRef(null);
+
+  const [windowHref, setWindowHref] = useState(null);
+  useEffect(() => setWindowHref(window.location.href), []);
+
   let intentHref = "https://twitter.com/intent/tweet?";
-  if (tweetText || (typeof children === "string" && children)) {
-    intentHref += `text=${encodeURIComponent(tweetText || children)}&`;
+  if (tweetText || childrenRef?.current?.textContent) {
+    intentHref += `text=${encodeURIComponent(
+      tweetText || childrenRef.current.textContent
+    )}&`;
   }
-  if (tweetUrl || tweetURL) {
-    intentHref += `url=${encodeURIComponent(tweetUrl || tweetURL)}&`;
+  if (tweetUrl || tweetURL || windowHref) {
+    intentHref += `url=${encodeURIComponent(
+      tweetUrl || tweetURL || windowHref
+    )}&`;
   }
   if (tweetVia) {
     intentHref += `via=${encodeURIComponent(tweetVia)}&`;
@@ -66,6 +75,7 @@ export default function TweetThis({
   return (
     <>
       <Component
+        ref={childrenRef}
         className={clsx(
           "tweet-this",
           colorActive && "tweet-this-active",
