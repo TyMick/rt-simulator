@@ -4,17 +4,17 @@ An interactive simulation that demonstrates how important it is to keep COVID-19
 
 I think most folks understand how dangerous it would be if each infected person spread the virus to 2 more people, but I imagine many would be surprised at how quickly cases rise if each person with COVID "only" infects an average of 1.1 people.
 
-![A preview of the animated Rt simulation chart, showing the 13-fold growth of new cases in the next four months if Rt = 1.1, then moving to show how quickly new cases shrink if Rt = 0.9.](/readme-graphics/preview.gif)
+![A preview of the animated Rt simulation chart, showing the 13-fold growth of new cases in the next four months if Rt = 1.1, then moving to show how quickly new cases shrink if Rt = 0.9.](/public/preview.gif)
 
 The simulation also allows the user to choose a U.S. state to fill its current <var>R<sub>t</sub></var> estimate (sourced from [R<sub>t</sub> Live](https://rt.live/)) and average daily cases, so they can see their own state's current outlook.
 
-![A similar chart showing the projection of the next four months given the State of New York's current Rt estimate and average daily cases. At the time of this screenshot, the median Rt estimate was 0.92, with an 80% confidence interval between 0.73 and 1.09.](/readme-graphics/preview-ny.png)
+![A similar chart showing the projection of the next four months given the State of New York's current Rt estimate and average daily cases. At the time of this screenshot, the median Rt estimate was 0.92, with an 80% confidence interval between 0.73 and 1.09.](/public/preview-ny.png)
 
 ## Methodology, Data, & Tools
 
 I adapted [my simulation model](https://github.com/tywmick/rt-simulator/blob/master/model.js) from Rt Live's model as they lay out in their [tutorial notebook](https://github.com/rtcovidlive/covid-model/blob/master/tutorial.ipynb). It accounts for the fact that it takes a few days for an infected person to pass on the virus by incorporating that delay (called the generation time) as a [log-normal probability distribution](https://en.wikipedia.org/wiki/Log-normal_distribution) with a mean of 4.7 days and standard deviation 2.9 days. Then, the number of newly infected people on a given day (<var>y<sub>t</sub></var>) is a sum that looks at all previous days, weighing the number of newly infected people <var>i</var> days ago (<var>y<sub>t - i</sub></var>​) by the generation time probability (<var>g<sub>i</sub></var>​) for that number of days and the effective reproduction number (which for the purposes of this simulation is being kept constant at <var>R<sub>e</sub></var>​). More succinctly,
 
-![y_t = sum_{i = 1}^{M}{y_(t - 1) R_e g_i}](/readme-graphics/summation.png)
+![y_t = sum_{i = 1}^{M}{y_(t - 1) R_e g_i}](/public/summation.png)
 
 Simulations run from today's date to four months in the future, and they treat every day prior to the start date as having a number of new infections equal to the "Initial daily infections" setting below the chart.
 
