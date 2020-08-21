@@ -53,8 +53,7 @@ export default function MethodologyDataTools() {
       </p>
 
       <p>
-        For the &ldquo;Pick a U.S. state&rdquo; dropdown (which only appears if
-        the app is able to download the required data), current <TeX>R_t</TeX>{" "}
+        For the &ldquo;Pick a U.S. state&rdquo; dropdown, current <TeX>R_t</TeX>{" "}
         estimates and average daily cases are fetched directly{" "}
         <a href="https://rt.live/#footer">
           from R<sub>t</sub> Live

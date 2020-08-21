@@ -11,7 +11,7 @@ import clsx from "clsx";
 const InitialDailyInfectionsInput = memo(
   ({ initialDailyInfections, region }) => {
     const dispatch = useContext(DispatchContext);
-    const { covidDataLoaded, usaNewCases7DayAvg } = useCovidData();
+    const { usaNewCases7DayAvg } = useCovidData();
 
     const breakpoint = useWindowWidthBreakpoints();
 
@@ -25,7 +25,24 @@ const InitialDailyInfectionsInput = memo(
           Initial daily infections:
         </Form.Label>
         <Col xs sm="auto">
-          {covidDataLoaded && !region ? (
+          {region ? (
+            <Form.Control
+              as={NumberFormatInput}
+              value={initialDailyInfections}
+              thousandSeparator={true}
+              decimalScale={0}
+              allowNegative={false}
+              onValueChange={({ floatValue }) => {
+                if (floatValue !== initialDailyInfections) {
+                  dispatch({
+                    type: "setInitialDailyInfections",
+                    payload: floatValue,
+                  });
+                }
+              }}
+              style={{ ...(breakpoint.up.sm && { width: "7.75em" }) }}
+            />
+          ) : (
             <OverlayTrigger
               overlay={
                 <Tooltip id="current-usa-average">
@@ -51,30 +68,12 @@ const InitialDailyInfectionsInput = memo(
                 style={{ ...(breakpoint.up.sm && { width: "7.75em" }) }}
               />
             </OverlayTrigger>
-          ) : (
-            <Form.Control
-              as={NumberFormatInput}
-              value={initialDailyInfections}
-              thousandSeparator={true}
-              decimalScale={0}
-              allowNegative={false}
-              onValueChange={({ floatValue }) => {
-                if (floatValue !== initialDailyInfections) {
-                  dispatch({
-                    type: "setInitialDailyInfections",
-                    payload: floatValue,
-                  });
-                }
-              }}
-              style={{ ...(breakpoint.up.sm && { width: "7.75em" }) }}
-            />
           )}
         </Col>
         <Col
           xs="auto"
           className={clsx(
-            (!covidDataLoaded ||
-              initialDailyInfections === usaNewCases7DayAvg) &&
+            initialDailyInfections === usaNewCases7DayAvg &&
               (breakpoint.xs ? "d-none" : "invisible")
           )}
         >

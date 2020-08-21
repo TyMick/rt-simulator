@@ -27,8 +27,6 @@ export default function InteractiveChart() {
     []
   );
 
-  const { covidDataLoaded } = useCovidData();
-
   return (
     <DispatchContext.Provider value={dispatch}>
       <Container as="figure" fluid="xl" className="cap-width-lg mb-0">
@@ -53,7 +51,7 @@ export default function InteractiveChart() {
           initialDailyInfections={state.initialDailyInfections}
           region={state.region}
         />
-        {covidDataLoaded && <StatePicker region={state.region} />}
+        <StatePicker region={state.region} />
       </Container>
     </DispatchContext.Provider>
   );
