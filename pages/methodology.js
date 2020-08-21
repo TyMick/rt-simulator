@@ -7,7 +7,10 @@ import Footer from "../components/footer";
 export default function Methodology() {
   return (
     <>
-      <NextSeo title="Rt Simulator – Methodology, Data, &amp; Tools" />
+      <NextSeo
+        title="Rt Simulator – Methodology, Data, &amp; Tools"
+        canonical="https://rtsimulator.com/methodology"
+      />
       <Navbar />
       <MethodologyDataTools />
       <Footer />
