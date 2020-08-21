@@ -12,7 +12,14 @@ export default function useCovidData(dispatch, initialData, options) {
   const { data, error, isValidating } = useSWR(
     rtLiveDataUrl,
     fetchRtData,
-    Object.assign({ revalidateOnFocus: false }, options)
+    Object.assign(
+      {
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+        errorRetryInterval: 0,
+      },
+      options
+    )
   );
 
   useEffect(() => {
