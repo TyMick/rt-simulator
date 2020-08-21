@@ -83,6 +83,7 @@ export default function TweetThis({
         onMouseLeave={removeColor}
         onFocus={activateColor}
         onBlur={removeColor}
+        aria-label="Tweet the preceding sentence"
         {...tweetButtonProps}
       >
         <FontAwesomeIcon icon={faTwitter} /> Tweet this
