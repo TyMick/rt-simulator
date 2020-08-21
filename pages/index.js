@@ -1,4 +1,5 @@
 import React from "react";
+import { NextSeo } from "next-seo";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import useWindowOrientation from "use-window-orientation";
 import { Container } from "react-bootstrap";
@@ -21,6 +22,22 @@ export default function Index() {
 
   return (
     <>
+      {/* prettier-ignore */}
+      <NextSeo
+        title="Rt Simulator"
+        canonical="https://rtsimulator.com"
+        openGraph={{
+          title: "Rt Simulator",
+          url: "https://rtsimulator.com",
+          description: "An interactive data simulation that shows why it's so important to keep COVID-19's reproduction number below 1. Exponential growth is a powerful force.",
+          images: [{
+            url: "https://rtsimulator.com/rt-1-1-chart.png",
+            alt: "A chart labeled &quot;Rt = 1.1&quot; that shows daily new infections rising from around 50,000 to over 650,000 in four months.",
+          }],
+        }}
+        twitter={{ cardType: "summary_large_image" }}
+      />
+
       <Navbar tex={covidDataLoaded} />
 
       {covidDataLoaded ? (
