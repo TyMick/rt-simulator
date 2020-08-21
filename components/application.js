@@ -14,7 +14,7 @@ export default function Application() {
         <TweetThis
           tweetText={`If #COVID19’s reproduction number is "just" 1.1, daily #coronavirus transmissions will increase 13-fold in the next four months.`}
           tweetUrl="https://rtsimulator.com"
-          tweetRelated="CorrieMick"
+          tweetRelated="tywmick"
         >
           If COVID-19&rsquo;s reproduction number is &ldquo;just&rdquo;{" "}
           <TeX>1.1</TeX>,{" "}
