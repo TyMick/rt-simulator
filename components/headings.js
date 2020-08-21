@@ -15,7 +15,7 @@ export default function Headings() {
         Why it&rsquo;s so important to keep COVID&rsquo;s
         {breakpoint.up.lg ? <br /> : " "}reproduction number below 1
       </h1>
-      <div id="subtitle">A lesson in exponential growth</div>
+      <div id="subtitle">The power of exponential growth</div>
     </Container>
   );
 }
