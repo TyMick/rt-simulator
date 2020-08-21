@@ -38,7 +38,7 @@ export default function Index() {
         twitter={{ cardType: "summary_large_image" }}
       />
 
-      <Navbar tex={covidDataLoaded} />
+      <Navbar loadTex={covidDataLoaded} />
 
       {covidDataLoaded ? (
         <>

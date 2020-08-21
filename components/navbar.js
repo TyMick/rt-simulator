@@ -5,7 +5,7 @@ import TeX from "@matejmazur/react-katex";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
-export default function Navbar({ tex }) {
+export default function Navbar({ loadTex }) {
   return (
     <RBNavbar
       as="header"
@@ -15,7 +15,7 @@ export default function Navbar({ tex }) {
       <Container fluid="xl">
         <Link href="/" passHref>
           <RBNavbar.Brand>
-            {tex === false ? (
+            {loadTex === false ? (
               <var>
                 R<sub>t</sub>
               </var>
