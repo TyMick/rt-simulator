@@ -1,4 +1,4 @@
-# <var>R<sub>t</sub></var> Simulator
+# <a href="https://rtsimulator.com"><var>R<sub>t</sub></var> Simulator</a>
 
 An interactive simulation that demonstrates how important it is to keep COVID-19's reproduction number (<var>R<sub>t</sub></var>) below 1.
 
