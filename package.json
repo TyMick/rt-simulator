@@ -41,7 +41,7 @@
     "unfetch": "^4.1.0",
     "use-window-orientation": "^1.0.1",
     "use-window-width-breakpoints": "^1.0.9",
-    "vega": "^5.14.0",
+    "vega": "^5.17.3",
     "vega-lite": "^4.14.1"
   },
   "devDependencies": {
