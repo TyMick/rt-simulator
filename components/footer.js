@@ -9,8 +9,8 @@ export default function Footer({ methodologyLink }) {
     <footer>
       <Container className="mb-5">
         <p>
-          Built by <a href="https://tymick.me">Ty Mick</a>, a data scientist who
-          happens to be looking for a great job right now. ❤️
+          Built by <a href="https://tymick.me">Ty Mick</a>, a software developer
+          and data scientist.
         </p>
 
         <p>
