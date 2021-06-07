@@ -30,7 +30,7 @@ export default function Footer({ methodologyLink }) {
               <a>methodology page</a>
             </Link>{" "}
             (or head straight to{" "}
-            <a href="https://github.com/tywmick/rt-simulator">the source</a>).
+            <a href="https://github.com/TyMick/rt-simulator">the source</a>).
           </p>
         )}
       </Container>

@@ -53,7 +53,7 @@ export default function Application() {
         })}
         <small className="d-block text-secondary">
           <a
-            href="https://github.com/tywmick/rt-simulator/edit/master/constants/rt-trackers.yaml.js"
+            href="https://github.com/TyMick/rt-simulator/edit/master/constants/rt-trackers.yaml.js"
             title="Edit rt-trackers.yaml.js on GitHub"
             className="text-secondary"
             style={{ textDecoration: "underline" }}

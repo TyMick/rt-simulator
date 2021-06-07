@@ -21,7 +21,7 @@ export default function MethodologyDataTools() {
 
       <p>
         I adapted{" "}
-        <a href="https://github.com/tywmick/rt-simulator/blob/master/model.js">
+        <a href="https://github.com/TyMick/rt-simulator/blob/master/model.js">
           my simulation model
         </a>{" "}
         from R<sub>t</sub> Live&rsquo;s model as they lay out in their{" "}

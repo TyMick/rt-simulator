@@ -27,8 +27,8 @@ export default function Navbar({ loadTex }) {
         </Link>
         <Nav className="mr-n2">
           <Nav.Link
-            href="https://github.com/tywmick/rt-simulator"
-            title="tywmick/rt-simulator on GitHub"
+            href="https://github.com/TyMick/rt-simulator"
+            title="TyMick/rt-simulator on GitHub"
           >
             <FontAwesomeIcon icon={faGithub} size="2x" />
           </Nav.Link>

@@ -1,7 +1,7 @@
 {
   "name": "rt-simulator",
   "author": "Ty Mick <ty@tymick.me> (https://tymick.me)",
-  "repository": "github:tywmick/rt-simulator",
+  "repository": "github:TyMick/rt-simulator",
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
