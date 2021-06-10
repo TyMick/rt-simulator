@@ -9,7 +9,8 @@
     "build": "next build && next export",
     "start": "npm run build && serve out",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d out -m Build -t"
+    "deploy": "gh-pages -d out -m Build -t",
+    "preinstall": "npx npm-force-resolutions"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -28,13 +29,13 @@
     "lodash": "^4.17.21",
     "next": "^10.2.3",
     "next-seo": "^4.24.0",
-    "node-sass": "^4.14.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
     "react-bootstrap-range-slider": "^1.1.4",
     "react-dom": "^17.0.2",
     "react-number-format": "^4.6.1",
     "react-vega": "^7.4.3",
+    "sass": "^1.34.1",
     "spinkit": "^2.0.1",
     "swr": "^0.5.6",
     "unfetch": "^4.2.0",
@@ -46,5 +47,8 @@
   "devDependencies": {
     "gh-pages": "^3.2.0",
     "prettier": "^2.3.1"
+  },
+  "resolutions": {
+    "filenamify-url": "^2.1.1"
   }
 }
