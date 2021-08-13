@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 
 export default function useAnimation(
   animating,
@@ -10,7 +10,7 @@ export default function useAnimation(
 
   const [direction, setDirection] = useState("up");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (animating) {
       let timer;
       if (rt === 0.9 && direction === "down") {
