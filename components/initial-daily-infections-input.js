@@ -88,5 +88,5 @@ const InitialDailyInfectionsInput = memo(
     );
   }
 );
-
+InitialDailyInfectionsInput.displayName = "InitialDailyInfectionsInput";
 export default InitialDailyInfectionsInput;

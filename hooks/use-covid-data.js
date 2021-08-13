@@ -39,31 +39,27 @@ export default function useCovidData(dispatch, initialData, options) {
 }
 
 async function fetchRtData(csvUrl) {
-  try {
-    const csvResponse = await fetch(csvUrl, { method: "GET" });
-    if (csvResponse.ok) {
-      const csvBlob = await csvResponse.blob();
-      const csvText = await new Promise((resolve, reject) => {
-        let reader = new FileReader();
-        reader.onload = function (event) {
-          resolve(event.target.result);
-        };
-        reader.readAsText(csvBlob);
-      });
+  const csvResponse = await fetch(csvUrl, { method: "GET" });
+  if (csvResponse.ok) {
+    const csvBlob = await csvResponse.blob();
+    const csvText = await new Promise((resolve) => {
+      let reader = new FileReader();
+      reader.onload = function (event) {
+        resolve(event.target.result);
+      };
+      reader.readAsText(csvBlob);
+    });
 
-      return await formatRtData(csvText);
-    } else {
-      let error = new Error(csvResponse.statusText);
-      error.response = csvResponse;
-      throw error;
-    }
-  } catch (err) {
-    throw err;
+    return await formatRtData(csvText);
+  } else {
+    let error = new Error(csvResponse.statusText);
+    error.response = csvResponse;
+    throw error;
   }
 }
 
 async function formatRtData(csvString) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const fullData = fromCSV(csvString)
       .parseDates("date")
       .parseInts([

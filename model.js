@@ -28,23 +28,23 @@ export function generateSimData(
       datum.medianColor = medianColor;
     }
 
-    function fillNewInfections(rt, fieldname) {
+    const fillNewInfections = (rt, fieldName) => {
       let newInfections = 0;
 
       // Loop over previous days
       let remainingProbability = 1;
       for (let i = 1; i <= t; i++) {
         let probability = generationTime.pdf(i);
-        newInfections += simData[t - i][fieldname] * rt * probability;
+        newInfections += simData[t - i][fieldName] * rt * probability;
         remainingProbability -= probability;
       }
 
       // Apply remaining probability to initial daily infections value
       newInfections += initialDailyInfections * rt * remainingProbability;
 
-      datum[fieldname] = newInfections;
+      datum[fieldName] = newInfections;
       return newInfections;
-    }
+    };
 
     cumulativeInfections += fillNewInfections(rtMedian, "medianNewInfections");
     for (let i = 0; i < ciBreakpoints.length; i++) {

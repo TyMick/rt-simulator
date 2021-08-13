@@ -38,5 +38,5 @@ export default function useAnimation(
         setDirection("down");
       }
     }
-  }, [animating, rt]);
+  }, [animating, direction, dispatch, rt, timeAtEnds, timeWhileMoving]);
 }

@@ -85,5 +85,5 @@ const StatePicker = memo(({ region }) => {
     </Form.Group>
   );
 });
-
+StatePicker.displayName = "StatePicker";
 export default StatePicker;

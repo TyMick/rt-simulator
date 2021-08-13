@@ -9,7 +9,8 @@
     "build": "next build && next export",
     "start": "npm run build && serve out",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d out -m Build -t"
+    "deploy": "gh-pages -d out -m Build -t",
+    "lint": "eslint --ignore-path .gitignore ."
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
