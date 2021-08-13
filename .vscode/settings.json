@@ -4,11 +4,14 @@
     "KaTeX",
     "Live's",
     "clsx",
+    "fontawesome",
     "fortawesome",
     "ints",
     "jstat",
     "lognormal",
     "matejmazur",
+    "predeploy",
+    "spinkit",
     "unfetch"
   ]
 }
