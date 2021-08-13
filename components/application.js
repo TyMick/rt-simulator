@@ -2,7 +2,7 @@ import React from "react";
 import TeX from "@matejmazur/react-katex";
 import { safeLoad } from "js-yaml";
 import TweetThis from "./tweet-this";
-import rtTrackersYaml from "../constants/rt-trackers.yaml.js";
+import rtTrackersYaml from "../lib/rt-trackers.yaml.js";
 
 export default function Application() {
   const rtTrackers = safeLoad(rtTrackersYaml);
@@ -53,7 +53,7 @@ export default function Application() {
         })}
         <small className="d-block text-secondary">
           <a
-            href="https://github.com/TyMick/rt-simulator/edit/master/constants/rt-trackers.yaml.js"
+            href="https://github.com/TyMick/rt-simulator/edit/master/lib/rt-trackers.yaml.js"
             title="Edit rt-trackers.yaml.js on GitHub"
             className="text-secondary"
             style={{ textDecoration: "underline" }}

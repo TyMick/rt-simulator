@@ -2,7 +2,7 @@ import React, { memo, useContext } from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { Form, Col } from "react-bootstrap";
 import TeX from "@matejmazur/react-katex";
-import { DispatchContext } from "../reducer";
+import { DispatchContext } from "../lib/reducer";
 
 const StatePicker = memo(({ region }) => {
   const dispatch = useContext(DispatchContext);

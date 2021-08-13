@@ -1,7 +1,7 @@
 import React, { useReducer, useCallback } from "react";
 import { Container, Form } from "react-bootstrap";
 import chroma from "chroma-js";
-import { initialState, reducer, DispatchContext } from "../reducer";
+import { initialState, reducer, DispatchContext } from "../lib/reducer";
 import useAnimation from "../hooks/use-animation";
 import useCovidData from "../hooks/use-covid-data";
 import ChartCaption from "./chart-caption";

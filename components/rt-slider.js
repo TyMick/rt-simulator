@@ -3,7 +3,7 @@ import { Form, Col } from "react-bootstrap";
 import RangeSlider from "react-bootstrap-range-slider";
 import TeX from "@matejmazur/react-katex";
 import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
-import { DispatchContext } from "../reducer";
+import { DispatchContext } from "../lib/reducer";
 import IconButton from "./icon-button";
 
 export default function RtSlider({ rt, animating }) {

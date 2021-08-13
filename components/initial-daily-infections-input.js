@@ -3,7 +3,7 @@ import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { Form, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 import NumberFormatInput from "react-number-format";
 import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
-import { DispatchContext } from "../reducer";
+import { DispatchContext } from "../lib/reducer";
 import useCovidData from "../hooks/use-covid-data";
 import IconButton from "./icon-button";
 import clsx from "clsx";

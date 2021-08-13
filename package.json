@@ -10,7 +10,7 @@
     "start": "npm run build && serve out",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d out -m Build -t",
-    "lint": "eslint --ignore-path .gitignore ."
+    "lint": "next lint"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -46,9 +46,8 @@
   },
   "devDependencies": {
     "eslint": "^7.32.0",
+    "eslint-config-next": "11.1.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
     "gh-pages": "^3.2.0",
     "prettier": "^2.3.1"
   }

@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import useWindowWidthBreakpoints from "use-window-width-breakpoints";
 import { VegaLite } from "react-vega";
 import { last, round } from "lodash";
-import { generateSimData } from "../model";
+import { generateSimData } from "../lib/model";
 
 export default function Chart({
   rt,
