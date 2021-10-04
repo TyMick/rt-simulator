@@ -22,7 +22,7 @@ export default function ChartCaption({ rt, rtLower80, rtUpper80, getRtColor }) {
             ? "\\htmlClass{invisible}{0}"
             : ""
         }`}
-        settings={{ trust: true }}
+        settings={{ trust: true, strict: allowHtml }}
       />
 
       {rtLower80 && rtUpper80 && (
@@ -56,4 +56,8 @@ export default function ChartCaption({ rt, rtLower80, rtUpper80, getRtColor }) {
       )}
     </figcaption>
   );
+}
+
+function allowHtml(errorCode, errorMsg, token) {
+  return errorCode === "htmlExtension" ? "ignore" : "warn";
 }
