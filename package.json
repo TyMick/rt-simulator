@@ -4,6 +4,10 @@
   "repository": "github:TyMick/rt-simulator",
   "license": "Apache-2.0",
   "private": true,
+  "engines": {
+    "node": "^14.21.3",
+    "npm": "^7.24.2"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
