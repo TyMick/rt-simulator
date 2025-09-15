@@ -83,13 +83,13 @@ export default function MethodologyDataTools() {
           <a href="https://vega.github.io/vega-lite/">Vega-Lite</a>
         </li>
         <li className="mb-1">
-          Statistics package: <a href="http://www.jstat.org/">jStat</a>
+          Statistics package: <a href="https://github.com/jstat/jstat">jStat</a>
         </li>
         <li className="mb-1">
           Data fetching: <a href="https://swr.vercel.app/">SWR</a>
         </li>
         <li className="mb-1">
-          Data wrangling: <a href="http://www.data-forge-js.com/">Data-Forge</a>
+          Data wrangling: <a href="https://github.com/data-forge/data-forge-ts">Data-Forge</a>
         </li>
         <li className="mb-1">
           Math typesetting:{" "}

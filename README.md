@@ -23,9 +23,9 @@ For the "Pick a U.S. state" dropdown, current <var>R<sub>t</sub></var> estimates
 These are the primary tools I used in this project:
 
 - Data visualization: [Vega-Lite](https://vega.github.io/vega-lite/)
-- Statistics package: [jStat](http://www.jstat.org/)
+- Statistics package: [jStat](https://github.com/jstat/jstat)
 - Data fetching: [SWR](https://swr.vercel.app/)
-- Data wrangling: [Data-Forge](http://www.data-forge-js.com/)
+- Data wrangling: [Data-Forge](https://github.com/data-forge/data-forge-ts)
 - Math typesetting: [KaTeX](https://katex.org/) via [react-katex](https://github.com/MatejBransky/react-katex)
 - Web framework: [Next.js](https://nextjs.org/)
 - Web design library: [Bootstrap](https://getbootstrap.com/) via [React Bootstrap](https://react-bootstrap.github.io/)
