@@ -6,7 +6,7 @@ I think most folks understand how dangerous it would be if each infected person 
 
 ![A preview of the animated Rt simulation chart, showing the 13-fold growth of new cases in the next four months if Rt = 1.1, then moving to show how quickly new cases shrink if Rt = 0.9.](/public/preview.gif)
 
-The simulation also allows the user to choose a U.S. state to fill its current <var>R<sub>t</sub></var> estimate (sourced from [R<sub>t</sub> Live](https://rt.live/)) and average daily cases, so they can see their own state's current outlook.
+The simulation also allows the user to choose a U.S. state to fill its current <var>R<sub>t</sub></var> estimate (sourced from [R<sub>t</sub> Live](https://web.archive.org/web/20210129022559/https://rt.live/)) and average daily cases, so they can see their own state's current outlook.
 
 ![A similar chart showing the projection of the next four months given the State of New York's current Rt estimate and average daily cases. At the time of this screenshot, the median Rt estimate was 0.92, with an 80% confidence interval between 0.73 and 1.09.](/public/preview-ny.png)
 
@@ -18,7 +18,7 @@ I adapted [my simulation model](https://github.com/TyMick/rt-simulator/blob/mast
 
 Simulations run from today's date to four months in the future, and they treat every day prior to the start date as having a number of new infections equal to the "Initial daily infections" setting below the chart.
 
-For the "Pick a U.S. state" dropdown, current <var>R<sub>t</sub></var> estimates and average daily cases are fetched directly [from R<sub>t</sub> Live](https://rt.live/#footer), and they source their case count data from [The COVID Tracking Project](https://covidtracking.com/). These real-time <var>R<sub>t</sub></var> estimates have an inherent degree of uncertainty, so each estimate includes an 80% confidence interval, which essentially means that we can be 80% sure that the _actual_ <var>R<sub>t</sub></var> value lies somewhere between those upper and lower bounds. You'll notice if you visit [R<sub>t</sub> Live's homepage](https://rt.live/) that as you look further back in time, these confidence intervals become smaller with the benefit of more data.
+For the "Pick a U.S. state" dropdown, current <var>R<sub>t</sub></var> estimates and average daily cases are fetched directly [from R<sub>t</sub> Live](https://web.archive.org/web/20210129022559/https://rt.live/#footer), and they source their case count data from [The COVID Tracking Project](https://covidtracking.com/). These real-time <var>R<sub>t</sub></var> estimates have an inherent degree of uncertainty, so each estimate includes an 80% confidence interval, which essentially means that we can be 80% sure that the _actual_ <var>R<sub>t</sub></var> value lies somewhere between those upper and lower bounds. You'll notice if you visit [R<sub>t</sub> Live's homepage](https://web.archive.org/web/20210129022559/https://rt.live/) that as you look further back in time, these confidence intervals become smaller with the benefit of more data.
 
 These are the primary tools I used in this project:
 

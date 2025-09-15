@@ -5,7 +5,7 @@ import { fromCSV } from "data-forge";
 import { isAfter, subDays, isEqual } from "date-fns";
 import { round } from "lodash";
 
-// Rt Live only requires attribution for data use: https://rt.live/faq#may-i-display-your-data-elsewhere-eg-my-site-publication-etc
+// Rt Live only requires attribution for data use: https://web.archive.org/web/20210127101048/https://rt.live/faq#may-i-display-your-data-elsewhere-eg-my-site-publication-etc
 const rtLiveDataUrl = "https://d14wlfuexuxgcm.cloudfront.net/covid/rt.csv";
 
 export default function useCovidData(dispatch, initialData, options) {

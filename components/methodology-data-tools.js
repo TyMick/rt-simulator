@@ -55,7 +55,7 @@ export default function MethodologyDataTools() {
       <p>
         For the &ldquo;Pick a U.S. state&rdquo; dropdown, current <TeX>R_t</TeX>{" "}
         estimates and average daily cases are fetched directly{" "}
-        <a href="https://rt.live/#footer">
+        <a href="https://web.archive.org/web/20210129022559/https://rt.live/#footer">
           from R<sub>t</sub> Live
         </a>
         , and they source their case count data from{" "}
@@ -66,7 +66,7 @@ export default function MethodologyDataTools() {
         essentially means that we can be 80% sure that the <em>actual</em>{" "}
         <TeX>R_t</TeX> value lies somewhere between those upper and lower
         bounds. You&rsquo;ll notice if you visit{" "}
-        <a href="https://rt.live/">
+        <a href="https://web.archive.org/web/20210129022559/https://rt.live/">
           R<sub>t</sub> Live&rsquo;s homepage
         </a>{" "}
         that as you look further back in time, these confidence intervals become

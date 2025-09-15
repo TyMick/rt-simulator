@@ -15,7 +15,7 @@ export default function Footer({ methodologyLink }) {
 
         <p>
           United States <TeX>R_t</TeX> estimates provided by{" "}
-          <a href="https://rt.live/">
+          <a href="https://web.archive.org/web/20210129022559/https://rt.live/">
             R<sub>t</sub> Live
           </a>
           , with case count data from{" "}
